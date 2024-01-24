@@ -1,9 +1,14 @@
 @charset "utf-8";
 /* CSS Document */
 
+body {
+    background-color: brown;
+    font-size: 5vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .pageBody {
-    position:absolute;
-    background-color: aqua;
+    /* position:absolute;*/
+    background-color: cecece;
     top: 9%;
     left:0%;
     width: 100%;
