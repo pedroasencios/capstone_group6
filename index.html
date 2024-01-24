@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Entry</title>
-        <script src="js/jquery3.7.1.js"></script>
-        <link href="css/styles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/validation.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
     <div id="page-0" class="pageBody">
@@ -35,22 +36,9 @@
             <label for="zipCode">Zip Code:</label>
             <input type="text" id="zipCode" required>
 
-            <button type="button" onclick="validateCreditCard()">Submit Order</button>
+            <!-- Updated the button with an id attribute -->
+            <button type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
         </form>
-    </div> 
-    
-    <div id="page-1" class="pageBody">
-        <div>Page 1</div>
     </div>
-
-    <div id="page-2" class="pageBody">
-        <div>Page 2</div>
-    </div>
-
-    <div id="page-3" class="pageBody">
-        <div>Page 3</div>
-    </div>
-
-    <script src="--javascript--"></script>
 </body>
 </html>
