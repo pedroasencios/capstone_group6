@@ -1,6 +1,6 @@
 # I.S Capstone 
 Project 2 aims to reinforce our E-commerce capabilities by integrating a payment processing system. This initiative is designed to enhance user experience, ensure secure payment flows, and align our platform with industry standards.
-
+# Features
 A significant aspect of this project involves the development of an intuitive user interface. With the user interface, client-side JavaScript validations are being implemented to ensure the security and accuracy of payment information. These validations include checks for expired cards, card type detection, and secure masking of key fields.
 The project extends past the front-end enhancements, including interactions with mock credit card authorization endpoints. Addressing various scenarios, including 
 
