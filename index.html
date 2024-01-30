@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Entry</title>
+    <title>One Page Website Testing</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="js/validation.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/loadapp.js"></script>
+    <script src="js/navigate.js"></script>
     <link href="css/styles.css" rel="stylesheet">
 </head>
+
 <body>
+
     <div id="page-0" class="pageBody">
-        <div>Order Entry</div>
+        <div id="header">Group 6 - Project 2</div>
+        <div class="spacer10px"></div>
+        <div onClick="navigateForward(1)">Go to Order Entry UI</div>
+        <div class="spacer2em"></div>
+        <div onClick="navigateForward(2)">Go to Order List UI</div>
+        <div class="spacer20px"></div>
+        <div onClick="navigateForward(3)">Go to Warehouse UI</div>   
+    </div>
+
+    <div id="page-1" class="pageBody">
+        <div>Order Entry UI</div>
+        <div onClick="navigateBackward()">Go back</div>
         <form id="orderForm">
             <label for="orderId">Order ID:</label>
             <input type="text" id="orderId" required>
-
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" required>
-
             <label for="lastName">Last Name:</label>
             <input type="text" id="lastName" required>
-
             <label for="address">Address:</label>
             <input type="text" id="address" required>
-
             <label for="creditCard">Credit Card Number:</label>
             <input type="text" id="creditCard" required>
-
             <label for="expirationDate">Expiration Date:</label>
             <input type="text" id="expirationDate" placeholder="MM/YYYY" required>
-
             <label for="securityCode">Security Code:</label>
             <input type="text" id="securityCode" required>
-
             <label for="zipCode">Zip Code:</label>
             <input type="text" id="zipCode" required>
-
             <button type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
         </form>
+
     </div>
+    <div id="page-2" class="pageBody">
+        <div>Order List UI</div>
+        <div onClick="navigateBackward()">Go back</div>
+    </div>
+    <div id="page-3" class="pageBody">
+        <div>Warehouse UI</div>
+        <div onClick="navigateBackward()">Go back</div>
+    </div>
+
 </body>
+
 </html>
