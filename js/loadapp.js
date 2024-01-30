@@ -3,5 +3,6 @@
 $(document).ready(function() {
     intCurrentPage = 0;
     navArray = [];
-    $('.pageBody').show();
+    $('.pageBody').hide();
+    $("#page-0").show();
 });
