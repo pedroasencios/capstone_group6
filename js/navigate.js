@@ -1,6 +1,6 @@
 // Javascript Document
 
-function navigateFoward(getPage) {
+function navigateForward(getPage) {
     $('#page-'+intCurrentPage).hide();
     $('#page-'+getPage).show();
     navArray.push(intCurrentPage);
