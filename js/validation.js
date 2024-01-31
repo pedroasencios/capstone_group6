@@ -48,27 +48,22 @@ $(document).ready(function () {
             testScenario = amexTestData;
             cardTypeLogo.attr('src', 'path_to_amex_logo.png');
         } else if (firstDigit === '0') {
-            // For credit card numbers starting with '0', consider it as an incorrect card detail
             testScenario = visaTestDataIncorrect;
             cardTypeLogo.attr('src', 'path_to_visa_logo.png');
         } else {
             alert('Invalid credit card number. Please enter a valid credit card number.');
-            cardTypeLogo.attr('src', ''); // Clear logo for invalid card type
+            cardTypeLogo.attr('src', ''); 
             return;
         }
     
-        // Basic validations
         if (!testScenario || !testScenario.testCreditCardNumber || !testScenario.testExpirationDate || !testScenario.testSecurityCode) {
             alert('Please provide valid test data for validation');
         } else {
-            // Additional validations
             if (isCardExpired(testScenario.testExpirationDate)) {
                 alert('Credit card is expired');
                 return;
             }
-    
-            // Mock API endpoint for authorization (replace this with your actual API endpoint)
-            // This is a simplified example using a mock response
+
             authorizeTransaction(testScenario.testCreditCardNumber, testScenario.testExpirationDate, testScenario.testSecurityCode)
                 .then(function (response) {
                     console.log("Authorization response:", response);
@@ -92,19 +87,17 @@ $(document).ready(function () {
     }
     
     function isCardExpired(expirationDate) {
-        // Add your logic to check if the card is expired
-        // For simplicity, let's assume all future dates are valid
+
         var currentDate = new Date();
         var parts = expirationDate.split('/');
         var expirationMonth = parseInt(parts[0], 10);
-        var expirationYear = parseInt(parts[1], 10) + 2000; // assuming 4-digit year
+        var expirationYear = parseInt(parts[1], 10) + 2000; 
 
         return currentDate.getFullYear() > expirationYear || (currentDate.getFullYear() === expirationYear && currentDate.getMonth() + 1 > expirationMonth);
     }
 
     function authorizeTransaction(creditCardNumber, expirationDate, securityCode) {
-        // Simulate an asynchronous request to a mock API endpoint
-        // Replace this with your actual API endpoint for credit card authorization
+
         return new Promise(function (resolve) {
             if (creditCardNumber.startsWith('2982')) {
                 resolve({
