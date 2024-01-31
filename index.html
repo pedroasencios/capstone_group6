@@ -11,8 +11,19 @@
     <script src="js/loadapp.js"></script>
     <script src="js/navigate.js"></script>
     <link href="css/styles.css" rel="stylesheet">
-</head>
+    <style>
+        #creditCard {
+            padding-left: 30px;
+            background-repeat: no-repeat;
+            background-size: 20px; /* Adjust the size of the logo */
+            background-position: 5px center; /* Adjust the position of the logo */
+        }
 
+        .cardLogo {
+            display: none;
+        }
+    </style>
+</head>
 <body>
 
     <div id="page-0" class="pageBody">
@@ -38,26 +49,53 @@
             <label for="address">Address:</label>
             <input type="text" id="address" required>
             <label for="creditCard">Credit Card Number:</label>
-            <input type="text" id="creditCard" required>
+            <input type="text" id="creditCard" required oninput="detectCardType()">
+            <div id="cardTypeLogoContainer">
+                <img id="mastercardLogo" class="cardLogo" src="images/mastercard_logo.png" alt="Mastercard Logo">
+                <img id="visaLogo" class="cardLogo" src="images/visa_logo.png" alt="Visa Logo">
+                <img id="amexLogo" class="cardLogo" src="images/amex_logo.png" alt="American Express Logo">
+            </div>
             <label for="expirationDate">Expiration Date:</label>
-            <input type="text" id="expirationDate" placeholder="MM/YYYY" required>
+            <input type="text" id="expirationDate" placeholder="MM/YY" required>
             <label for="securityCode">Security Code:</label>
-            <input type="text" id="securityCode" required>
+            <input type="text" placeholder="000" id="securityCode" required>
             <label for="zipCode">Zip Code:</label>
-            <input type="text" id="zipCode" required>
+            <input type="text" placeholder="12345" id="zipCode" required>
             <button type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
         </form>
-
     </div>
+
     <div id="page-2" class="pageBody">
         <div>Order List UI</div>
         <div onClick="navigateBackward()">Go back</div>
-        
     </div>
+    
     <div id="page-3" class="pageBody">
         <div>Warehouse UI</div>
         <div onClick="navigateBackward()">Go back</div>
     </div>
+
+    <script>
+        // Function to detect card type and display corresponding logo
+        function detectCardType() {
+            var enteredCreditCardNumber = $('#creditCard').val();
+            var firstDigit = enteredCreditCardNumber.charAt(0);
+            var cardTypeLogos = {
+                '2': 'mastercardLogo',
+                '4': 'visaLogo',
+                '3': 'amexLogo',
+            };
+            hideAllLogos();
+            if (cardTypeLogos[firstDigit]) {
+                $('#' + cardTypeLogos[firstDigit]).show();
+            }
+        }
+
+        // Function to hide all card logos
+        function hideAllLogos() {
+            $('.cardLogo').hide();
+        }
+    </script>
 
 </body>
 
