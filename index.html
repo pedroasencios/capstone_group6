@@ -11,18 +11,6 @@
     <script src="js/loadapp.js"></script>
     <script src="js/navigate.js"></script>
     <link href="css/styles.css" rel="stylesheet">
-    <style>
-        #creditCard {
-            padding-left: 30px;
-            background-repeat: no-repeat;
-            background-size: 20px; /* Adjust the size of the logo */
-            background-position: 5px center; /* Adjust the position of the logo */
-        }
-
-        .cardLogo {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 
@@ -76,7 +64,7 @@
     </div>
 
     <script>
-        // Function to detect card type and display corresponding logo
+        // STILL IN TESTING //
         function detectCardType() {
             var enteredCreditCardNumber = $('#creditCard').val();
             var firstDigit = enteredCreditCardNumber.charAt(0);
@@ -91,7 +79,6 @@
             }
         }
 
-        // Function to hide all card logos
         function hideAllLogos() {
             $('.cardLogo').hide();
         }
