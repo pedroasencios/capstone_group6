@@ -30,11 +30,10 @@ body {
     height: 2em;
 }
 
-/* New styles for card type icons */
 .cardTypeIcons {
     display: flex;
     justify-content: space-around;
-    align-items: center; /* Align items vertically in the center */
+    align-items: center;
     margin-top: 10px;
 }
 
@@ -42,7 +41,7 @@ body {
     max-width: 30px;
     filter: grayscale(100%);
     transition: filter 0.3s ease-in-out;
-    margin-right: 10px; /* Add margin for spacing between icons */
+    margin-right: 10px;
 }
 
 .cardTypeIcon.active {
@@ -53,11 +52,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85vh; /* Use the viewport height to center vertically */
+    height: 85vh;
 }
 
 #orderForm {
-    /* Add any specific styling for your form here */
-    width: 500px; /* Set a width for your form */
-    padding: 90px; /* Add some padding for better appearance */
+    width: 500px;
+    padding: 90px;
 }
