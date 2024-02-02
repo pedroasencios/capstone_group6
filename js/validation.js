@@ -6,20 +6,16 @@ $(document).ready(function () {
         $('#creditCard').val(formattedCreditCardNumber);
     }
 
-    // Initialize icons with grayscale filter
     $('.cardTypeIcon').css('filter', 'grayscale(100%)');
 
     $('#creditCard').on('input', function () {
         autoFormatCreditCard();
 
-        // Detect card type and update the card type icons
         var enteredCreditCardNumber = $('#creditCard').val();
         var cardType = getCreditCardType(enteredCreditCardNumber);
 
-        // Reset all icons to grayscale filter
         $('.cardTypeIcon').css('filter', 'grayscale(100%)');
 
-        // Remove grayscale filter for the detected card type icon
         $('#' + cardType + 'Icon').css('filter', 'grayscale(0%)');
     });
 
@@ -29,26 +25,19 @@ $(document).ready(function () {
         var enteredCreditCardNumber = $('#creditCard').val();
         var firstDigit = enteredCreditCardNumber.charAt(0);
 
-        // Your existing validation code...
-
-        // Additional code to update card type icons without hiding them
-        $('.cardTypeIcon').css('filter', 'grayscale(100%)'); // Reset grayscale filter
+        $('.cardTypeIcon').css('filter', 'grayscale(100%)'); 
 
         if (firstDigit === '2') {
-            $('#mastercardIcon').css('filter', 'grayscale(0%)'); // Remove grayscale filter for Mastercard icon
+            $('#mastercardIcon').css('filter', 'grayscale(0%)'); 
         } else if (firstDigit === '4') {
-            $('#visaIcon').css('filter', 'grayscale(0%)'); // Remove grayscale filter for Visa icon
+            $('#visaIcon').css('filter', 'grayscale(0%)'); 
         } else if (firstDigit === '3') {
-            $('#amexIcon').css('filter', 'grayscale(0%)'); // Remove grayscale filter for Amex icon
+            $('#amexIcon').css('filter', 'grayscale(0%)'); 
         }
 
-        // Rest of your existing code...
     }
 
-    // Mock implementation of getCreditCardType
     function getCreditCardType(creditCardNumber) {
-        // Replace this with your actual implementation to detect card type
-        // For simplicity, let's assume the first digit determines the card type
         var firstDigit = creditCardNumber.charAt(0);
 
         if (firstDigit === '2') {
@@ -97,45 +86,40 @@ $(document).ready(function () {
 
         if (firstDigit === '2') {
             testScenario = mastercardTestData;
-            $('.cardTypeIcon').hide(); // Hide all icons
-            $('#mastercardIcon').show(); // Show Mastercard icon
+            $('.cardTypeIcon').hide();
+            $('#mastercardIcon').show();
         } else if (firstDigit === '4') {
             if (isCardExpired(visaTestDataExpired.testExpirationDate)) {
                 testScenario = visaTestDataExpired;
-                $('.cardTypeIcon').hide(); // Hide all icons
-                $('#visaIcon').show(); // Show Visa icon
+                $('.cardTypeIcon').hide();
+                $('#visaIcon').show();
             } else {
                 testScenario = visaTestDataIncorrect;
-                $('.cardTypeIcon').hide(); // Hide all icons
-                $('#visaIcon').show(); // Show Visa icon
+                $('.cardTypeIcon').hide();
+                $('#visaIcon').show();
             }
         } else if (firstDigit === '3') {
             testScenario = amexTestData;
-            $('.cardTypeIcon').hide(); // Hide all icons
-            $('#amexIcon').show(); // Show Amex icon
+            $('.cardTypeIcon').hide();
+            $('#amexIcon').show();
         } else if (firstDigit === '0') {
-            // For credit card numbers starting with '0', consider it as an incorrect card detail
             testScenario = visaTestDataIncorrect;
-            $('.cardTypeIcon').hide(); // Hide all icons
-            $('#visaIcon').show(); // Show Visa icon
+            $('.cardTypeIcon').hide();
+            $('#visaIcon').show();
         } else {
             alert('Invalid credit card number. Please enter a valid credit card number.');
-            $('.cardTypeIcon').hide(); // Clear logo for invalid card type
+            $('.cardTypeIcon').hide();
             return;
         }
 
-        // Basic validations
         if (!testScenario || !testScenario.testCreditCardNumber || !testScenario.testExpirationDate || !testScenario.testSecurityCode) {
             alert('Please provide valid test data for validation');
         } else {
-            // Additional validations
             if (isCardExpired(testScenario.testExpirationDate)) {
                 alert('Credit card is expired');
                 return;
             }
 
-            // Mock API endpoint for authorization (replace this with your actual API endpoint)
-            // This is a simplified example using a mock response
             authorizeTransaction(testScenario.testCreditCardNumber, testScenario.testExpirationDate, testScenario.testSecurityCode)
                 .then(function (response) {
                     console.log("Authorization response:", response);
@@ -159,19 +143,15 @@ $(document).ready(function () {
     }
 
     function isCardExpired(expirationDate) {
-        // Add your logic to check if the card is expired
-        // For simplicity, let's assume all future dates are valid
         var currentDate = new Date();
         var parts = expirationDate.split('/');
         var expirationMonth = parseInt(parts[0], 10);
-        var expirationYear = parseInt(parts[1], 10) + 2000; // assuming 4-digit year
+        var expirationYear = parseInt(parts[1], 10) + 2000;
 
         return currentDate.getFullYear() > expirationYear || (currentDate.getFullYear() === expirationYear && currentDate.getMonth() + 1 > expirationMonth);
     }
 
     function authorizeTransaction(creditCardNumber, expirationDate, securityCode) {
-        // Simulate an asynchronous request to a mock API endpoint
-        // Replace this with your actual API endpoint for credit card authorization
         return new Promise(function (resolve) {
             if (creditCardNumber.startsWith('2982')) {
                 resolve({
