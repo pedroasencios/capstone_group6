@@ -12,77 +12,75 @@
     <script src="js/navigate.js"></script>
     <link href="css/styles.css" rel="stylesheet">
 </head>
+
 <body>
 
     <div id="page-0" class="pageBody">
         <div id="header">Group 6 - Project 2</div>
         <div class="spacer10px"></div>
         <div onClick="navigateForward(1)">Go to Order Entry UI</div>
-        <div class="spacer2em"></div>
+        <div class="spacer10px"></div>
         <div onClick="navigateForward(2)">Go to Order List UI</div>
-        <div class="spacer20px"></div>
-        <div onClick="navigateForward(3)">Go to Warehouse UI</div>   
+        <div class="spacer10px"></div>
+        <div onClick="navigateForward(3)">Go to Warehouse UI</div>
     </div>
 
     <div id="page-1" class="pageBody">
         <div>Order Entry UI</div>
         <div onClick="navigateBackward()">Go back</div>
-        <form id="orderForm">
-            <label for="orderId">Order ID:</label>
-            <input type="text" id="orderId" required>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" required>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" required>
-            <label for="address">Address:</label>
-            <input type="text" id="address" required>
-            <label for="creditCard">Credit Card Number:</label>
-            <input type="text" id="creditCard" required oninput="detectCardType()">
-            <div id="cardTypeLogoContainer">
-                <img id="mastercardLogo" class="cardLogo" src="images/mastercard_logo.png" alt="Mastercard Logo">
-                <img id="visaLogo" class="cardLogo" src="images/visa_logo.png" alt="Visa Logo">
-                <img id="amexLogo" class="cardLogo" src="images/amex_logo.png" alt="American Express Logo">
-            </div>
-            <label for="expirationDate">Expiration Date:</label>
-            <input type="text" id="expirationDate" placeholder="MM/YY" required>
-            <label for="securityCode">Security Code:</label>
-            <input type="text" placeholder="000" id="securityCode" required>
-            <label for="zipCode">Zip Code:</label>
-            <input type="text" placeholder="12345" id="zipCode" required>
-            <button type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
-        </form>
+        <div class="form-container">
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="orderId">Order ID:</label>
+                    <input type="text" id="orderId" required>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group creditCardContainer">
+                    <label for="creditCard">Credit Card Number:</label>
+                    <input type="text" id="creditCard" required>
+                </div>
+                <div class="form-group cardTypeIcons">
+                    <img id="mastercardIcon" class="cardTypeIcon" src="images/mastercard_logo.png" alt="Mastercard Logo">
+                    <img id="visaIcon" class="cardTypeIcon" src="images/visa_logo.png" alt="Visa Logo">
+                    <img id="amexIcon" class="cardTypeIcon" src="images/amex_logo.png" alt="American Express Logo">
+                </div>
+                <div class="form-group">
+                    <label for="expirationDate">Expiration Date:</label>
+                    <input type="text" id="expirationDate" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="securityCode">Security Code:</label>
+                    <input type="text" id="securityCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="zipCode">Zip Code:</label>
+                    <input type="text" id="zipCode" required>
+                </div>
+                <button type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
+            </form>
+        </div>    
     </div>
 
     <div id="page-2" class="pageBody">
         <div>Order List UI</div>
         <div onClick="navigateBackward()">Go back</div>
     </div>
-    
+
     <div id="page-3" class="pageBody">
         <div>Warehouse UI</div>
         <div onClick="navigateBackward()">Go back</div>
     </div>
-
-    <script>
-        // STILL IN TESTING //
-        function detectCardType() {
-            var enteredCreditCardNumber = $('#creditCard').val();
-            var firstDigit = enteredCreditCardNumber.charAt(0);
-            var cardTypeLogos = {
-                '2': 'mastercardLogo',
-                '4': 'visaLogo',
-                '3': 'amexLogo',
-            };
-            hideAllLogos();
-            if (cardTypeLogos[firstDigit]) {
-                $('#' + cardTypeLogos[firstDigit]).show();
-            }
-        }
-
-        function hideAllLogos() {
-            $('.cardLogo').hide();
-        }
-    </script>
 
 </body>
 
