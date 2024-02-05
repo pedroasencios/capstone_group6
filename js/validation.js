@@ -1,22 +1,49 @@
 $(document).ready(function () {
-
     function autoFormatCreditCard() {
-        var enteredCreditCardNumber = $('#creditCard').val();
-        var formattedCreditCardNumber = enteredCreditCardNumber.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
-        $('#creditCard').val(formattedCreditCardNumber);
+        var creditCardInput = $('#creditCard');
+        var cursorPosition = creditCardInput[0].selectionStart;
+        var enteredCreditCardNumber = creditCardInput.val().replace(/[^\d]/g, '');
+
+        var formattedCreditCardNumber = enteredCreditCardNumber.replace(/(\d{4})/g, '$1 ').trim();
+    
+        creditCardInput.val(formattedCreditCardNumber);
+    
+        var diff = formattedCreditCardNumber.length - enteredCreditCardNumber.length;
+        cursorPosition += diff;
+    
+        creditCardInput[0].setSelectionRange(cursorPosition, cursorPosition);
+    
+        detectCardType(enteredCreditCardNumber);
+    }
+    
+
+    function autoFormatSecurityCode() {
+        var enteredSecurityCode = $('#securityCode').val().replace(/\s/g, '');
+        var maskedSecurityCode = enteredSecurityCode.replace(/./g, '*');
+        $('#securityCode').val(maskedSecurityCode);
+    }
+
+    function detectCardType(creditCardNumber) {
+        var firstDigit = creditCardNumber.charAt(0);
+        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
+
+        if (firstDigit === '2') {
+            $('#mastercardIcon').css('filter', 'grayscale(0%)');
+        } else if (firstDigit === '4') {
+            $('#visaIcon').css('filter', 'grayscale(0%)');
+        } else if (firstDigit === '3') {
+            $('#amexIcon').css('filter', 'grayscale(0%)');
+        }
     }
 
     $('.cardTypeIcon').css('filter', 'grayscale(100%)');
 
     $('#creditCard').on('input', function () {
         autoFormatCreditCard();
+    });
 
-        var enteredCreditCardNumber = $('#creditCard').val();
-        var cardType = getCreditCardType(enteredCreditCardNumber);
-
-        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
-
-        $('#' + cardType + 'Icon').css('filter', 'grayscale(0%)');
+    $('#securityCode').on('input', function () {
+        autoFormatSecurityCode();
     });
 
     function validateCreditCard() {
@@ -25,56 +52,31 @@ $(document).ready(function () {
         var enteredCreditCardNumber = $('#creditCard').val();
         var firstDigit = enteredCreditCardNumber.charAt(0);
 
-        $('.cardTypeIcon').css('filter', 'grayscale(100%)'); 
+        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
 
         if (firstDigit === '2') {
-            $('#mastercardIcon').css('filter', 'grayscale(0%)'); 
+            $('#mastercardIcon').css('filter', 'grayscale(0%)');
         } else if (firstDigit === '4') {
-            $('#visaIcon').css('filter', 'grayscale(0%)'); 
+            $('#visaIcon').css('filter', 'grayscale(0%)');
         } else if (firstDigit === '3') {
-            $('#amexIcon').css('filter', 'grayscale(0%)'); 
+            $('#amexIcon').css('filter', 'grayscale(0%)');
         }
-
-    }
-
-    function getCreditCardType(creditCardNumber) {
-        var firstDigit = creditCardNumber.charAt(0);
-
-        if (firstDigit === '2') {
-            return 'mastercard';
-        } else if (firstDigit === '4') {
-            return 'visa';
-        } else if (firstDigit === '3') {
-            return 'amex';
-        } else {
-            return 'unknown';
-        }
-    }
-
-    function validateCreditCard() {
-        console.log("Entered validateCreditCard");
-
-        var enteredCreditCardNumber = $('#creditCard').val();
-        var firstDigit = enteredCreditCardNumber.charAt(0);
 
         var mastercardTestData = {
             testCreditCardNumber: '2982287198921273',
             testExpirationDate: '12/29',
             testSecurityCode: '987'
         };
-
         var visaTestDataExpired = {
             testCreditCardNumber: '4123982229822742',
             testExpirationDate: '09/20',
             testSecurityCode: '321'
         };
-
         var visaTestDataIncorrect = {
             testCreditCardNumber: '0879238719085783',
             testExpirationDate: '15/27',
             testSecurityCode: '782'
         };
-
         var amexTestData = {
             testCreditCardNumber: '3213082128732817',
             testExpirationDate: '04/28',
@@ -82,33 +84,20 @@ $(document).ready(function () {
         };
 
         var testScenario;
-        var cardTypeLogo = $('#cardTypeLogo');
-
         if (firstDigit === '2') {
             testScenario = mastercardTestData;
-            $('.cardTypeIcon').hide();
-            $('#mastercardIcon').show();
         } else if (firstDigit === '4') {
             if (isCardExpired(visaTestDataExpired.testExpirationDate)) {
                 testScenario = visaTestDataExpired;
-                $('.cardTypeIcon').hide();
-                $('#visaIcon').show();
             } else {
                 testScenario = visaTestDataIncorrect;
-                $('.cardTypeIcon').hide();
-                $('#visaIcon').show();
             }
         } else if (firstDigit === '3') {
             testScenario = amexTestData;
-            $('.cardTypeIcon').hide();
-            $('#amexIcon').show();
         } else if (firstDigit === '0') {
             testScenario = visaTestDataIncorrect;
-            $('.cardTypeIcon').hide();
-            $('#visaIcon').show();
         } else {
             alert('Invalid credit card number. Please enter a valid credit card number.');
-            $('.cardTypeIcon').hide();
             return;
         }
 
@@ -119,11 +108,9 @@ $(document).ready(function () {
                 alert('Credit card is expired');
                 return;
             }
-
             authorizeTransaction(testScenario.testCreditCardNumber, testScenario.testExpirationDate, testScenario.testSecurityCode)
                 .then(function (response) {
                     console.log("Authorization response:", response);
-
                     if (response.Success) {
                         displaySuccessMessage(response);
                     } else {
@@ -210,6 +197,7 @@ $(document).ready(function () {
             '  AuthorizationToken: ' + response.AuthorizationToken + '\n' +
             '  TokenExpirationDate: ' + response.TokenExpirationDate + '\n' +
             '  AuthorizedAmount: $' + response.AuthorizedAmount.toFixed(2);
+
         alert(successMessage);
     }
 
@@ -221,6 +209,7 @@ $(document).ready(function () {
             '  AuthorizationToken: ' + response.AuthorizationToken + '\n' +
             '  TokenExpirationDate: ' + response.TokenExpirationDate + '\n' +
             '  AuthorizedAmount: $' + response.AuthorizedAmount.toFixed(2);
+
         alert(failureMessage);
     }
 
@@ -232,9 +221,9 @@ $(document).ready(function () {
             '  AuthorizationToken: ' + response.AuthorizationToken + '\n' +
             '  TokenExpirationDate: ' + response.TokenExpirationDate + '\n' +
             '  AuthorizedAmount: $' + response.AuthorizedAmount.toFixed(2);
+
         alert(insufficientFundsMessage);
     }
 
     $('#submitButton').click(validateCreditCard);
-
 });
