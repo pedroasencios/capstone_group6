@@ -1,21 +1,21 @@
 $(document).ready(function () {
+    function generateRandomOrderId() {
+        return 'ORD' + ('000000' + Math.floor(Math.random() * 1000000)).slice(-6);
+    }
+
+    $('#orderId').val(generateRandomOrderId());
+
     function autoFormatCreditCard() {
         var creditCardInput = $('#creditCard');
         var cursorPosition = creditCardInput[0].selectionStart;
         var enteredCreditCardNumber = creditCardInput.val().replace(/[^\d]/g, '');
-
         var formattedCreditCardNumber = enteredCreditCardNumber.replace(/(\d{4})/g, '$1 ').trim();
-    
         creditCardInput.val(formattedCreditCardNumber);
-    
         var diff = formattedCreditCardNumber.length - enteredCreditCardNumber.length;
         cursorPosition += diff;
-    
         creditCardInput[0].setSelectionRange(cursorPosition, cursorPosition);
-    
         detectCardType(enteredCreditCardNumber);
     }
-    
 
     function autoFormatSecurityCode() {
         var enteredSecurityCode = $('#securityCode').val().replace(/\s/g, '');
@@ -26,7 +26,6 @@ $(document).ready(function () {
     function detectCardType(creditCardNumber) {
         var firstDigit = creditCardNumber.charAt(0);
         $('.cardTypeIcon').css('filter', 'grayscale(100%)');
-
         if (firstDigit === '2') {
             $('#mastercardIcon').css('filter', 'grayscale(0%)');
         } else if (firstDigit === '4') {
@@ -47,13 +46,9 @@ $(document).ready(function () {
     });
 
     function validateCreditCard() {
-        console.log("Entered validateCreditCard");
-
         var enteredCreditCardNumber = $('#creditCard').val();
         var firstDigit = enteredCreditCardNumber.charAt(0);
-
         $('.cardTypeIcon').css('filter', 'grayscale(100%)');
-
         if (firstDigit === '2') {
             $('#mastercardIcon').css('filter', 'grayscale(0%)');
         } else if (firstDigit === '4') {
@@ -62,71 +57,48 @@ $(document).ready(function () {
             $('#amexIcon').css('filter', 'grayscale(0%)');
         }
 
-        var mastercardTestData = {
-            testCreditCardNumber: '2982287198921273',
-            testExpirationDate: '12/29',
-            testSecurityCode: '987'
-        };
-        var visaTestDataExpired = {
-            testCreditCardNumber: '4123982229822742',
-            testExpirationDate: '09/20',
-            testSecurityCode: '321'
-        };
-        var visaTestDataIncorrect = {
-            testCreditCardNumber: '0879238719085783',
-            testExpirationDate: '15/27',
-            testSecurityCode: '782'
-        };
-        var amexTestData = {
-            testCreditCardNumber: '3213082128732817',
-            testExpirationDate: '04/28',
-            testSecurityCode: '154'
+        var fullApiResponse = {
+            OrderId: $('#orderId').val(),
+            Success: false,
+            Reason: 'Invalid credit card number. Please enter a valid credit card number.',
+            AuthorizationToken: null,
+            TokenExpirationDate: null,
+            AuthorizedAmount: 0.00
         };
 
-        var testScenario;
         if (firstDigit === '2') {
-            testScenario = mastercardTestData;
+            fullApiResponse.Success = true;
+            fullApiResponse.Reason = 'Your order has been placed!';
+            fullApiResponse.AuthorizationToken = 'dGhpcyBpcyBhbiBhdXRoIHRva2Vu';
+            fullApiResponse.TokenExpirationDate = '2024-01-31T00:00:00.000';
+            fullApiResponse.AuthorizedAmount = 50.00;
         } else if (firstDigit === '4') {
-            if (isCardExpired(visaTestDataExpired.testExpirationDate)) {
-                testScenario = visaTestDataExpired;
+            if (isCardExpired('09/20')) {
+                fullApiResponse.Reason = 'Your credit card is expired. Please try again.';
             } else {
-                testScenario = visaTestDataIncorrect;
+                fullApiResponse.Reason = 'Incorrect card details or missing details. Please check your card and try again.';
             }
         } else if (firstDigit === '3') {
-            testScenario = amexTestData;
-        } else if (firstDigit === '0') {
-            testScenario = visaTestDataIncorrect;
-        } else {
-            alert('Invalid credit card number. Please enter a valid credit card number.');
-            return;
+            fullApiResponse.Reason = 'Insufficient Funds. Please try again. ';
         }
 
-        if (!testScenario || !testScenario.testCreditCardNumber || !testScenario.testExpirationDate || !testScenario.testSecurityCode) {
-            alert('Please provide valid test data for validation');
-        } else {
-            if (isCardExpired(testScenario.testExpirationDate)) {
-                alert('Credit card is expired');
-                return;
-            }
-            authorizeTransaction(testScenario.testCreditCardNumber, testScenario.testExpirationDate, testScenario.testSecurityCode)
-                .then(function (response) {
-                    console.log("Authorization response:", response);
-                    if (response.Success) {
-                        displaySuccessMessage(response);
-                    } else {
-                        if (response.Reason.includes('incorrect')) {
-                            displayFailureMessage(response);
-                        } else if (response.Reason.includes('Insufficient Funds')) {
-                            displayInsufficientFundsMessage(response);
-                        } else {
-                            displayFailureMessage(response);
-                        }
-                    }
-                })
-                .catch(function (error) {
-                    console.error('Error authorizing transaction:', error);
-                });
-        }
+        // here is where we will put the database where the full api message will be sent
+        sendToDatabase(fullApiResponse);
+
+        displayUserMessage(fullApiResponse);
+    }
+
+    function sendToDatabase(apiResponse) {
+        console.log('Sending to database:', apiResponse);
+    }
+
+    function displayUserMessage(apiResponse) {
+        var userMessage = 'OrderID: ' + apiResponse.OrderId +
+            '\nSuccess: ' + apiResponse.Success +
+            '\nReason: ' + apiResponse.Reason +
+            '\nAmount: $' + apiResponse.AuthorizedAmount.toFixed(2);
+
+        alert(userMessage);
     }
 
     function isCardExpired(expirationDate) {
@@ -134,96 +106,11 @@ $(document).ready(function () {
         var parts = expirationDate.split('/');
         var expirationMonth = parseInt(parts[0], 10);
         var expirationYear = parseInt(parts[1], 10) + 2000;
+        var cardExpirationDate = new Date(expirationYear, expirationMonth - 1, new Date(expirationYear, expirationMonth, 0).getDate());
 
-        return currentDate.getFullYear() > expirationYear || (currentDate.getFullYear() === expirationYear && currentDate.getMonth() + 1 > expirationMonth);
+        return currentDate > cardExpirationDate;
     }
-
-    function authorizeTransaction(creditCardNumber, expirationDate, securityCode) {
-        return new Promise(function (resolve) {
-            if (creditCardNumber.startsWith('2982')) {
-                resolve({
-                    OrderId: 'ORD000123',
-                    Success: true,
-                    Reason: '',
-                    AuthorizationToken: 'dGhpcyBpcyBhbiBhdXRoIHRva2Vu',
-                    TokenExpirationDate: '2024-01-31T00:00:00.000',
-                    AuthorizedAmount: 50.00
-                });
-            } else if (creditCardNumber.startsWith('4123')) {
-                resolve({
-                    OrderId: 'ORD000123',
-                    Success: false,
-                    Reason: 'Card Details incorrect or missing on Card Ending in XXXX',
-                    AuthorizationToken: null,
-                    TokenExpirationDate: null,
-                    AuthorizedAmount: 0.00
-                });
-            } else if (creditCardNumber.startsWith('0879')) {
-                resolve({
-                    OrderId: 'ORD000123',
-                    Success: false,
-                    Reason: 'Incorrect Card Details on Card Ending in XXXX',
-                    AuthorizationToken: null,
-                    TokenExpirationDate: null,
-                    AuthorizedAmount: 0.00
-                });
-            } else if (creditCardNumber.startsWith('3213')) {
-                resolve({
-                    OrderId: 'ORD000123',
-                    Success: false,
-                    Reason: 'Insufficient Funds on Card ending in XXXX',
-                    AuthorizationToken: null,
-                    TokenExpirationDate: null,
-                    AuthorizedAmount: 0.00
-                });
-            } else {
-                resolve({
-                    OrderId: '',
-                    Success: false,
-                    Reason: 'Unknown scenario',
-                    AuthorizationToken: null,
-                    TokenExpirationDate: null,
-                    AuthorizedAmount: 0.00
-                });
-            }
-        });
-    }
-
-    function displaySuccessMessage(response) {
-        var successMessage = 'SUCCESSFUL TRANSACTION:\n' +
-            '  OrderId: ' + response.OrderId + '\n' +
-            '  Success: ' + response.Success + '\n' +
-            '  Reason: ' + response.Reason + '\n' +
-            '  AuthorizationToken: ' + response.AuthorizationToken + '\n' +
-            '  TokenExpirationDate: ' + response.TokenExpirationDate + '\n' +
-            '  AuthorizedAmount: $' + response.AuthorizedAmount.toFixed(2);
-
-        alert(successMessage);
-    }
-
-    function displayFailureMessage(response) {
-        var failureMessage = 'INCORRECT DETAILS:\n' +
-            '  OrderId: ' + response.OrderId + '\n' +
-            '  Success: ' + response.Success + '\n' +
-            '  Reason: ' + response.Reason + '\n' +
-            '  AuthorizationToken: ' + response.AuthorizationToken + '\n' +
-            '  TokenExpirationDate: ' + response.TokenExpirationDate + '\n' +
-            '  AuthorizedAmount: $' + response.AuthorizedAmount.toFixed(2);
-
-        alert(failureMessage);
-    }
-
-    function displayInsufficientFundsMessage(response) {
-        var insufficientFundsMessage = 'INSUFFICIENT FUNDS:\n' +
-            '  OrderId: ' + response.OrderId + '\n' +
-            '  Success: ' + response.Success + '\n' +
-            '  Reason: ' + response.Reason + '\n' +
-            '  AuthorizationToken: ' + response.AuthorizationToken + '\n' +
-            '  TokenExpirationDate: ' + response.TokenExpirationDate + '\n' +
-            '  AuthorizedAmount: $' + response.AuthorizedAmount.toFixed(2);
-
-        alert(insufficientFundsMessage);
-    }
+    
 
     $('#submitButton').click(validateCreditCard);
 });
