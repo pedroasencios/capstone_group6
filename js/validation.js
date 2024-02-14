@@ -82,7 +82,7 @@ $(document).ready(function () {
             fullApiResponse.Reason = 'Insufficient Funds. Please try again. ';
         }
 
-        // here is where we will put the database where the full api message will be sent
+        // here is where nicolas we will put the database where the full api message will be sent
         sendToDatabase(fullApiResponse);
 
         displayUserMessage(fullApiResponse);
