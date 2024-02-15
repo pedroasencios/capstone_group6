@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     function generateRandomOrderId() {
         return 'ORD' + ('000000' + Math.floor(Math.random() * 1000000)).slice(-6);
     }
