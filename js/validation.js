@@ -7,22 +7,12 @@ $(document).ready(function () {
     $('#orderId').val(generateRandomOrderId());
 
     function autoFormatCreditCard() {
-        var creditCardInput = $('#creditCard');
-        var cursorPosition = creditCardInput[0].selectionStart;
-        var enteredCreditCardNumber = creditCardInput.val().replace(/[^\d]/g, '');
-        var formattedCreditCardNumber = enteredCreditCardNumber.replace(/(\d{4})/g, '$1 ').trim();
-        creditCardInput.val(formattedCreditCardNumber);
-        var diff = formattedCreditCardNumber.length - enteredCreditCardNumber.length;
-        cursorPosition += diff;
-        creditCardInput[0].setSelectionRange(cursorPosition, cursorPosition);
-        detectCardType(enteredCreditCardNumber);
-    }
+        detectCardType($('#creditCard').val().replace(/[^\d]/g, ''));
 
-    function autoFormatSecurityCode() {
-        var enteredSecurityCode = $('#securityCode').val().replace(/\s/g, '');
-        var maskedSecurityCode = enteredSecurityCode.replace(/./g, '*');
-        $('#securityCode').val(maskedSecurityCode);
+        var trimmedCreditCardNumber = creditCardInput.val().replace(/^\s+/, '');
+        creditCardInput.val(trimmedCreditCardNumber);
     }
+    
 
     function detectCardType(creditCardNumber) {
         var firstDigit = creditCardNumber.charAt(0);
@@ -48,16 +38,6 @@ $(document).ready(function () {
 
     function validateCreditCard() {
         var enteredCreditCardNumber = $('#creditCard').val();
-        var firstDigit = enteredCreditCardNumber.charAt(0);
-        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
-        if (firstDigit === '2') {
-            $('#mastercardIcon').css('filter', 'grayscale(0%)');
-        } else if (firstDigit === '4') {
-            $('#visaIcon').css('filter', 'grayscale(0%)');
-        } else if (firstDigit === '3') {
-            $('#amexIcon').css('filter', 'grayscale(0%)');
-        }
-
         var fullApiResponse = {
             OrderId: $('#orderId').val(),
             Success: false,
@@ -66,29 +46,66 @@ $(document).ready(function () {
             TokenExpirationDate: null,
             AuthorizedAmount: 0.00
         };
-
-        if (firstDigit === '2') {
-            fullApiResponse.Success = true;
-            fullApiResponse.Reason = 'Your order has been placed!';
-            fullApiResponse.AuthorizationToken = 'dGhpcyBpcyBhbiBhdXRoIHRva2Vu';
-            fullApiResponse.TokenExpirationDate = '2024-01-31T00:00:00.000';
-            fullApiResponse.AuthorizedAmount = 50.00;
-        } else if (firstDigit === '4') {
-            if (isCardExpired('09/20')) {
+    
+        var enteredExpirationDate = $('#expirationDate').val();
+        var enteredCVV = $('#securityCode').val();
+        if (
+            $('#firstName').val() === '' ||
+            $('#lastName').val() === '' ||
+            $('#address').val() === '' ||
+            enteredCreditCardNumber === '' ||
+            $('#expirationDate').val() === '' ||
+            enteredCVV === '' ||
+            $('#zipCode').val() === ''
+        ) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+    
+        var firstDigit = enteredCreditCardNumber.charAt(0);
+        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
+    
+        if (enteredCreditCardNumber === '0879238719085783' && enteredExpirationDate === '15/27' && enteredCVV === '782') {
+            fullApiResponse.Reason = 'Incorrect Card Details. Please try again.';
+        } else if (enteredCreditCardNumber.startsWith('0')) {
+            fullApiResponse.Reason = 'Incorrect Card Details. Please try again';
+        } else if (parseInt(enteredExpirationDate.split('/')[0]) > 12) {
+            fullApiResponse.Reason = 'Invalid expiration date month. Please enter a valid month.';
+        } else if (enteredCreditCardNumber.charAt(0) === '3') {
+            fullApiResponse.Reason = 'Insufficient funds. Please try again.';
+        } else {
+            if (isCardExpired(enteredExpirationDate)) {
                 fullApiResponse.Reason = 'Your credit card is expired. Please try again.';
             } else {
-                fullApiResponse.Reason = 'Incorrect card details or missing details. Please check your card and try again.';
+                fullApiResponse.Success = true;
+                fullApiResponse.Reason = 'Your order has been placed!';
+                fullApiResponse.AuthorizationToken = 'dGhpcyBpcyBhbiBhdXRoIHRva2Vu';
+                fullApiResponse.TokenExpirationDate = '2024-01-31T00:00:00.000';
+                fullApiResponse.AuthorizedAmount = 50.00;
             }
-        } else if (firstDigit === '3') {
-            fullApiResponse.Reason = 'Insufficient Funds. Please try again. ';
         }
 
-        // here is where nicolas we will put the database where the full api message will be sent
+        var maskedCVV = enteredCVV.replace(/./g, '*');
+        $('#securityCode').val(maskedCVV);
+    
+        var lastFourDigits = enteredCreditCardNumber.slice(-4);
+        var maskedCreditCardNumber = '**** **** **** ' + lastFourDigits;
+        $('#creditCard').val(maskedCreditCardNumber);
+    
         sendToDatabase(fullApiResponse);
-
         displayUserMessage(fullApiResponse);
+        $('#resetButton').show();
     }
+    
+    function resetForm() {
+        $('#orderId').val(generateRandomOrderId());
 
+        $('#firstName, #lastName, #address, #creditCard, #expirationDate, #securityCode, #zipCode').val('');
+
+        $('#resetButton').hide();
+    }
+    
+    // check with nicholas //
     function sendToDatabase(apiResponse) {
         console.log('Sending to database:', apiResponse);
     }
@@ -114,4 +131,5 @@ $(document).ready(function () {
     
 
     $('#submitButton').click(validateCreditCard);
+    $('#resetButton').click(resetForm);
 });
