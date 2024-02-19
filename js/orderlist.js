@@ -69,7 +69,7 @@ $(document).ready(function () {
     }
 
     function logOut() {
-        isLoggedIn = false; // Set login status to false
+        isLoggedIn = false;
         $('#username').val(''); 
         $('#password').val('');
         $('#loginContainer').show();
