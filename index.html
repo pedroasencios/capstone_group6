@@ -10,6 +10,7 @@
     <script src="js/functions.js"></script>
     <script src="js/loadapp.js"></script>
     <script src="js/navigate.js"></script>
+    <script src="js/orderlist.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -77,14 +78,62 @@
     </div>
 
     <div id="page-2" class="pageBody">
-        <div>Order List UI</div>
-        <div onClick="navigateBackward()">Go back</div>
+        <div id="loginContainer" stlye="position: relative;">
+            <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
+            <h1>Login</h1>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="button" id="loginButton" onclick="attemptLogin()">Login</button>
+        </div>
+
+        <div id="orderListContent" style="display: none;">
+            <div id="filters">
+                <label for="statusFilter">Filter by Status:</label>
+                <select id="statusFilter">
+                    <option value="all">All</option>
+                    <option value="success">Success</option>
+                    <option value="pending">Pending</option>
+                    <option value="failed">Failed</option>
+                </select>
+            </div>
+            <div id="sorting">
+                <label for="sortOrder">Sort Order:</label>
+                <select id="sortOrder">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+            <button type="button" id="logOutButton" onclick="logOut()" style="display: none;">Log Out</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Token</th>
+                        <th>Expiration Date</th>
+                        <th>Created Date</th>
+                        <th>Authorized Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <!-- Order list will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div id="page-3" class="pageBody">
         <div>Warehouse UI</div>
         <div onClick="navigateBackward()">Go back</div>
+        <div id="passwordProtection">
+            <label for="passwordInput">Enter Password:</label>
+            <input type="password" id="passwordInput">
+        </div>
     </div>
+
+    
 
 </body>
 
