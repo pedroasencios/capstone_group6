@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     function generateRandomOrderId() {
         return 'ORD' + ('000000' + Math.floor(Math.random() * 1000000)).slice(-6);
     }
@@ -7,12 +7,12 @@ $(document).ready(function () {
     $('#orderId').val(generateRandomOrderId());
 
     function autoFormatCreditCard() {
-        detectCardType($('#creditCard').val().replace(/[^\d]/g, ''));
+        var creditCardInput = $('#creditCard');
+        detectCardType(creditCardInput.val().replace(/[^\d]/g, ''));
 
         var trimmedCreditCardNumber = creditCardInput.val().replace(/^\s+/, '');
         creditCardInput.val(trimmedCreditCardNumber);
     }
-    
 
     function detectCardType(creditCardNumber) {
         var firstDigit = creditCardNumber.charAt(0);
@@ -32,12 +32,11 @@ $(document).ready(function () {
         autoFormatCreditCard();
     });
 
-    $('#securityCode').on('input', function () {
-        autoFormatSecurityCode();
-    });
-
     function validateCreditCard() {
-        var enteredCreditCardNumber = $('#creditCard').val();
+        var enteredCreditCardNumber = $('#creditCard').val().trim();
+        var enteredExpirationDate = $('#expirationDate').val().trim();
+        var enteredCVV = $('#securityCode').val().trim();
+
         var fullApiResponse = {
             OrderId: $('#orderId').val(),
             Success: false,
@@ -46,25 +45,15 @@ $(document).ready(function () {
             TokenExpirationDate: null,
             AuthorizedAmount: 0.00
         };
-    
-        var enteredExpirationDate = $('#expirationDate').val();
-        var enteredCVV = $('#securityCode').val();
-        if (
-            $('#firstName').val() === '' ||
-            $('#lastName').val() === '' ||
-            $('#address').val() === '' ||
-            enteredCreditCardNumber === '' ||
-            $('#expirationDate').val() === '' ||
-            enteredCVV === '' ||
-            $('#zipCode').val() === ''
-        ) {
-            alert('Please fill in all required fields.');
-            return;
+
+        var requiredFields = ['#firstName', '#lastName', '#address', '#creditCard', '#expirationDate', '#securityCode', '#zipCode'];
+        for (var i = 0; i < requiredFields.length; i++) {
+            if ($(requiredFields[i]).val().trim() === '') {
+                alert('Please fill in all required fields.');
+                return;
+            }
         }
-    
-        var firstDigit = enteredCreditCardNumber.charAt(0);
-        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
-    
+
         if (enteredCreditCardNumber === '0879238719085783' && enteredExpirationDate === '15/27' && enteredCVV === '782') {
             fullApiResponse.Reason = 'Incorrect Card Details. Please try again.';
         } else if (enteredCreditCardNumber.startsWith('0')) {
@@ -87,16 +76,16 @@ $(document).ready(function () {
 
         var maskedCVV = enteredCVV.replace(/./g, '*');
         $('#securityCode').val(maskedCVV);
-    
+
         var lastFourDigits = enteredCreditCardNumber.slice(-4);
         var maskedCreditCardNumber = '**** **** **** ' + lastFourDigits;
         $('#creditCard').val(maskedCreditCardNumber);
-    
+
         sendToDatabase(fullApiResponse);
         displayUserMessage(fullApiResponse);
         $('#resetButton').show();
     }
-    
+
     function resetForm() {
         $('#orderId').val(generateRandomOrderId());
 
@@ -104,7 +93,7 @@ $(document).ready(function () {
 
         $('#resetButton').hide();
     }
-    
+
     // check with nicholas //
     function sendToDatabase(apiResponse) {
         console.log('Sending to database:', apiResponse);
@@ -128,7 +117,6 @@ $(document).ready(function () {
 
         return currentDate > cardExpirationDate;
     }
-    
 
     $('#submitButton').click(validateCreditCard);
     $('#resetButton').click(resetForm);
