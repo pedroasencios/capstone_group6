@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* CSS Document */
+
+#header {
+    font-size: 40px;
+}
+
+body {
+    background-color: li;
+    font-size: 3vmin;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.pageBody {
+    background-color: cecece;
+    top: 9%;
+    left: 0%;
+    width: 100%;
+    height: 91%;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-size: 25px;
+}
+
+.spacer10px {
+    width: 100%;
+    height: 10px;
+}
+
+.spacer20px {
+    width: 100%;
+    height: 20px;
+}
+
+.spacer2em {
+    width: 100%;
+    height: 2em;
+}
+
+.cardTypeIcons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.cardTypeIcon {
+    max-width: 30px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+.cardTypeIcon.active {
+    filter: grayscale(0%);
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    font-size: 16px;
+}
+
+#orderForm {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f2f7ff;
+
+}
+
+#orderForm .form-group {
+    margin-bottom: 30px;
+}
+
+#orderForm label{ 
+    display: block;
+    margin-bottom: 5px;
+}
+
+#orderForm input{
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#orderForm button {
+    background-color: green;
+    color: white;
+    padding: 11px;
+    font-size: 14px;
+    border: none;
+    border-radius: 50px;
+}
+
+#orderForm button:hover {
+    background-color: #008CBA;
+}
