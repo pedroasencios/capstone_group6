@@ -11,6 +11,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
+
 }
 
 .pageBody {
@@ -72,6 +73,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f2f7ff;
+    margin:auto;
 
 }
 
@@ -85,7 +87,7 @@ body {
 }
 
 #orderForm input{
-    width: 100px;
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
