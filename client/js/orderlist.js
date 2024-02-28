@@ -8,33 +8,48 @@ $(document).ready(function () {
             $('#logOutButton').hide();
             return;
         }
-
+    
         var statusFilter = $('#statusFilter').val();
         var sortOrder = $('#sortOrder').val();
-
-        // Fetch orders from the server
+    
+        // grabs the orders from mysql server hosted on xampp
         $.ajax({
-            url: 'http://localhost:5000/getAllOrders', // Adjust the URL based on your server setup
+            url: 'http://localhost:5000/getAllOrders',
             type: 'GET',
             success: function (response) {
                 if (response.success) {
                     var orders = response.data;
-
-                    // Apply filters and sorting
                     var filteredOrders = orders.filter(function (order) {
                         return statusFilter === 'all' || order.status === statusFilter;
                     });
 
                     filteredOrders.sort(function (a, b) {
-                        var aValue = sortOrder === 'asc' ? a.created_date : b.created_date;
-                        var bValue = sortOrder === 'asc' ? b.created_date : a.created_date;
-
-                        return new Date(aValue) - new Date(bValue);
+                        var aValue = new Date(a.created_date).toLocaleString();
+                        var bValue = new Date(b.created_date).toLocaleString();
+    
+                        return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                    });
+    
+                    // filter token
+                    var tokenFilter = $('#tokenFilter').val().toLowerCase();
+                    filteredOrders = filteredOrders.filter(function (order) {
+                        return containsToken(order.auth_token, tokenFilter);
+                    });
+    
+                    // filter the exp date
+                    var expirationDateFilter = $('#expirationDateFilter').val().toLowerCase();
+                    filteredOrders = filteredOrders.filter(function (order) {
+                        return containsExpirationDate(order.token_exp_date, expirationDateFilter);
+                    });
+    
+                    // filter createddate
+                    var createdDateFilter = $('#createdDateFilter').val();
+                    filteredOrders = filteredOrders.filter(function (order) {
+                        return containsCreatedDate(order.created_date, createdDateFilter);
                     });
 
-                    // Render the order table
                     $('#orderTableBody').empty();
-
+    
                     filteredOrders.forEach(function (order) {
                         var row = `<tr>
                             <td>${order.orderId}</td>
@@ -47,7 +62,6 @@ $(document).ready(function () {
                         $('#orderTableBody').append(row);
                     });
 
-                    // Show the order list content
                     $('#loginContainer').hide();
                     $('#orderListContent').show();
                     $('#logOutButton').show();
@@ -61,18 +75,43 @@ $(document).ready(function () {
         });
     }
 
-    // Attach event handlers
+    function containsToken(authToken, tokenFilter) {
+        return authToken.toLowerCase().includes(tokenFilter);
+    }
+    function containsExpirationDate(expirationDate, expirationDateFilter) {
+        return expirationDate.toLowerCase().includes(expirationDateFilter);
+    }
+    function containsCreatedDate(createdDate) {
+        var createdDateFilter = $('#createdDateFilter').val().toLowerCase();
+        return createdDate.toLowerCase().includes(createdDateFilter);
+    }
+    function clearFilters() {
+        $('#statusFilter').val('all');
+        $('#tokenFilter').val('');
+        $('#expirationDateFilter').val('');
+        $('#sortOrder').val('asc');
+        renderOrderList();
+    }
+
     $('#statusFilter, #sortOrder').on('change', renderOrderList);
-    $('#password').on('keydown', function (event) {
+    $('#filterTokenButton').click(renderOrderList);
+    $('#filterExpirationDateButton').click(renderOrderList);
+    $('#filterCreatedDateButton').click(renderOrderList);
+    $('#clearFiltersButton').click(clearFilters);
+    $('#tokenFilter, #expirationDateFilter, #createdDateFilter').on('keyup', function (event) {
+        if (event.key === 'Enter') {
+            renderOrderList();
+        }
+    });
+
+    $('#password').on('keyup', function (event) {
         if (event.key === 'Enter') {
             attemptLogin();
         }
     });
 
-    // Initial rendering
     renderOrderList();
 
-    // Login function
     function attemptLogin() {
         var enteredUsername = $('#username').val();
         var enteredPassword = $('#password').val();
@@ -84,7 +123,6 @@ $(document).ready(function () {
         }
     }
 
-    // Logout function
     function logOut() {
         isLoggedIn = false;
         $('#username').val('');
@@ -94,7 +132,6 @@ $(document).ready(function () {
         $('#logOutButton').hide();
     }
 
-    // Attach login and logout event handlers
     $('#loginButton').click(attemptLogin);
     $('#logOutButton').click(logOut);
 });

@@ -42,10 +42,21 @@ $(document).ready(function () {
     });
 
     function validateCreditCard() {
+        var enteredExpirationDate = $('#expirationDate').val().trim();
+        // checks if it is using a legit date
+        if (!isValidExpirationDateFormat(enteredExpirationDate)) {
+            alert('Invalid Expiration Date format. Please use MM/YY.');
+            return;
+        }
+
+        if (isCardExpired(enteredExpirationDate)) {
+            alert('Expired Card Details: Your card is expired. Please try again.');
+            return;
+        }
+
         var enteredCreditCardNumber = $('#creditCard').val().trim();
         console.log('Entered Credit Card Number:', enteredCreditCardNumber);
-    
-        var enteredExpirationDate = $('#expirationDate').val().trim();
+
         var enteredCVV = $('#securityCode').val().trim();
     
         var successApiResponse = {
@@ -80,18 +91,7 @@ $(document).ready(function () {
             token_exp_date: null,
             auth_amount: 0.00
         };
-
-        var expiredCardApiResponse = { 
-            cardType: 'Expired Card Details (Visa)',
-            orderId: $('#orderId').val(),
-            created_date: generateCurrentDateTime(),
-            success: false,
-            reason: 'Your card is expired. Please try again.',
-            auth_token: null,
-            token_exp_date: null,
-            auth_amount: 0.00
-        };
-    
+        
         var requiredFields = ['#firstName', '#lastName', '#address', '#creditCard', '#expirationDate', '#securityCode', '#zipCode'];
         for (var i = 0; i < requiredFields.length; i++) {
             if ($(requiredFields[i]).val().trim() === '') {
@@ -109,10 +109,6 @@ $(document).ready(function () {
                 console.log('Successful Card (Mastercard)');
                 successApiResponse.success = true;
                 selectedApiResponse = successApiResponse;
-            } else if (enteredCreditCardNumber.startsWith('4')) {
-                console.log('Expired Card Details (Visa)');
-                expiredCardApiResponse.Reason = 'Your credit card is expired. Please try again.';
-                selectedApiResponse = expiredCardApiResponse;
             } else if (enteredCreditCardNumber.startsWith('3')) {
                 console.log('Insufficient Funds Card (AMEX)');
                 insufficientFundsApiResponse.Reason = 'Insufficient funds. Please try again.';
@@ -205,6 +201,11 @@ $(document).ready(function () {
         var cardExpirationDate = new Date(expirationYear, expirationMonth - 1, new Date(expirationYear, expirationMonth, 0).getDate());
 
         return currentDate > cardExpirationDate;
+    }
+
+    function isValidExpirationDateFormat(expirationDate) {
+        var regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        return regex.test(expirationDate);
     }
 
     $('#submitButton').click(validateCreditCard);

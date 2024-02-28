@@ -78,7 +78,7 @@
     </div>
 
     <div id="page-2" class="pageBody">
-        <div id="loginContainer" stlye="position: relative;">
+        <div id="loginContainer" style="position: relative;">
             <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
             <h1>Login</h1>
             <label for="username">Username:</label>
@@ -97,6 +97,18 @@
                     <option value="pending">Pending</option>
                     <option value="failed">Failed</option>
                 </select>
+
+                <label for="tokenFilter">Filter by Token:</label>
+                <input type="text" id="tokenFilter">
+                <button type="button" id="filterTokenButton">Filter by Token</button>
+
+                <label for="expirationDateFilter">Filter by Expiration Date:</label>
+                <input type="text" id="expirationDateFilter" placeholder="YYYY-MM-DD">
+                <button type="button" id="filterExpirationDateButton">Filter by Expiration Date</button>
+                <label for="createdDateFilter">Filter by Created Date:</label>
+                <input type="text" id="createdDateFilter" placeholder="YYYY-MM-DD">
+                <button type="button" id="filterCreatedDateButton" onclick="containsCreatedDate()">Filter by Created Date</button>
+                <button type="button" id="clearFiltersButton" onclick="clearFilters()">Clear</button>
             </div>
             <div id="sorting">
                 <label for="sortOrder">Sort Order:</label>
