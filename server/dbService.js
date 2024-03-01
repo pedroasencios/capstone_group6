@@ -26,7 +26,7 @@ class DbService {
     async insertNewOrder(orderId, auth_token, token_exp_date, auth_amount, created_date) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO order_entry (orderId, auth_token, token_exp_date, auth_amount, created_date) VALUES (?, ?, ?, ?, ?);";
+                const query = "INSERT INTO orders (orderId, auth_token, token_exp_date, auth_amount, created_date) VALUES (?, ?, ?, ?, ?);";
 
                 connection.query(query, [orderId, auth_token, token_exp_date, auth_amount, created_date], (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -44,7 +44,7 @@ class DbService {
     async getAllOrders() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM order_entry;";
+                const query = "SELECT * FROM orders;";
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
