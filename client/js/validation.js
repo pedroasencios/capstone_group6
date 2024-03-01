@@ -149,9 +149,14 @@ $(document).ready(function () {
 
     // check with nicholas //
     function sendToDatabase(apiResponse) {
-        console.log('Order ID to be sent:', apiResponse.orderid); 
+        // here is where it will concatenate 
+        var authorizationToken = apiResponse.orderId + '_' + apiResponse.auth_token;
+    
+        // directs it to the correct data
+        apiResponse.auth_token = authorizationToken;
+
         $.ajax({
-            url: 'http://localhost:5000/insert',
+            url: 'http://localhost:5000/insert',  // Replace with your server endpoint
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(apiResponse),
@@ -163,7 +168,6 @@ $(document).ready(function () {
             }
         });
     }
-    
 
     function displayUserMessage(apiResponse) {
         var userMessage;

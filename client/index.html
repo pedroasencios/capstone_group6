@@ -11,6 +11,7 @@
     <script src="js/loadapp.js"></script>
     <script src="js/navigate.js"></script>
     <script src="js/orderlist.js"></script>
+    <script src="js/warehouse.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -142,6 +143,17 @@
         <div id="passwordProtection">
             <label for="passwordInput">Enter Password:</label>
             <input type="password" id="passwordInput">
+        </div>
+    
+        <!-- Warehouse UI Form -->
+        <div id="warehouseForm">
+            <label for="orderIdWarehouse">Order ID:</label>
+            <input type="text" id="orderIdWarehouse" required>
+    
+            <label for="finalAmountWarehouse">Final Amount:</label>
+            <input type="text" id="finalAmountWarehouse" required>
+    
+            <button type="button" id="submitButtonWarehouse">Submit</button>
         </div>
     </div>
 
