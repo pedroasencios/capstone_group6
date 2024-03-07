@@ -1,0 +1,185 @@
+/* page1.css */
+
+#page-2 .pageBody {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+#loginContainer {
+    position: relative;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#loginContainer h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#loginContainer label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#loginContainer input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#loginButton {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#loginButton:hover {
+    background-color: #2980b9;
+}
+
+#orderListContent {
+    display: none;
+}
+
+#filters, #sorting {
+    margin-bottom: 20px;
+}
+
+#filters label, #sorting label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#filters select, #sorting select, #filters input, #sorting input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#filters button, #sorting button, #logOutButton {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#filters button:hover, #sorting button:hover, #logOutButton:hover {
+    background-color: #2980b9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff; /* sets table color */
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+#orderTableBody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.compact-filters {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    margin-right: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-group label {
+    margin-right: 5px;
+}
+
+.filter-buttons button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.table-container {
+    width: 80%;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+.order-table th, .order-table td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+    position: relative;
+}
+
+.order-table th {
+    background-color: #5a63c4;
+    color: white;
+}
+
+.order-table tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #2C3446;
+}
+
+.order-table td:hover {
+    background-color: #ff6627; /* this will change the pop up color when hovered */
+    color: white;
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .order-table {
+        font-size: 12px;
+    }
+
+    .order-table th, .order-table td {
+        padding: 10px;
+    }
+}

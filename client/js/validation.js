@@ -4,7 +4,6 @@ $(document).ready(function () {
         console.log('Generated Order ID:', $('#orderId').val());
         return 'ORD' + ('000000' + Math.floor(Math.random() * 1000000)).slice(-6);
     }
-
     $('#orderId').val(generateRandomOrderId());
 
     function generateCurrentDateTime() {
@@ -13,12 +12,10 @@ $(document).ready(function () {
         console.log('Generated Date and Time:', formattedDate);
         return formattedDate;
     }
-    
 
     function autoFormatCreditCard() {
         var creditCardInput = $('#creditCard');
         detectCardType(creditCardInput.val().replace(/[^\d]/g, ''));
-
         var trimmedCreditCardNumber = creditCardInput.val().replace(/^\s+/, '');
         creditCardInput.val(trimmedCreditCardNumber);
     }
@@ -36,7 +33,6 @@ $(document).ready(function () {
     }
 
     $('.cardTypeIcon').css('filter', 'grayscale(100%)');
-
     $('#creditCard').on('input', function () {
         autoFormatCreditCard();
     });
@@ -48,17 +44,13 @@ $(document).ready(function () {
             alert('Invalid Expiration Date format. Please use MM/YY.');
             return;
         }
-
         if (isCardExpired(enteredExpirationDate)) {
             alert('Expired Card Details: Your card is expired. Please try again.');
             return;
         }
-
         var enteredCreditCardNumber = $('#creditCard').val().trim();
         console.log('Entered Credit Card Number:', enteredCreditCardNumber);
-
-        var enteredCVV = $('#securityCode').val().trim();
-    
+        var enteredCVV = $('#securityCode').val().trim();   
         var successApiResponse = {
             cardType: 'Successful Card (Mastercard)',
             orderId: $('#orderId').val(),
@@ -68,8 +60,7 @@ $(document).ready(function () {
             auth_token: 'dGhpcyBpcyBhbiBhdXRoIHRva2Vu',
             token_exp_date: '2024-01-31T00:00:00.000',
             auth_amount: 50.00
-        };
-    
+        };    
         var incorrectDetailsApiResponse = {
             cardType: 'Incorrect Card Detail (Visa)',
             orderId: $('#orderId').val(),
@@ -79,8 +70,7 @@ $(document).ready(function () {
             auth_token: null,
             token_exp_date: null,
             auth_amount: 0.00
-        };
-    
+        };   
         var insufficientFundsApiResponse = {
             cardType: 'Insufficient Funds Card (AMEX)',
             orderId: $('#orderId').val(),
@@ -90,9 +80,9 @@ $(document).ready(function () {
             auth_token: null,
             token_exp_date: null,
             auth_amount: 0.00
-        };
-        
+        };       
         var requiredFields = ['#firstName', '#lastName', '#address', '#creditCard', '#expirationDate', '#securityCode', '#zipCode'];
+        
         for (var i = 0; i < requiredFields.length; i++) {
             if ($(requiredFields[i]).val().trim() === '') {
                 alert('Please fill in all required fields.');
@@ -124,9 +114,9 @@ $(document).ready(function () {
                     auth_token: null,
                     token_exp_date: null,
                     auth_amount: 0.00
-                };
-        }
-    
+                };    
+            }
+            
         var maskedCVV = enteredCVV.replace(/./g, '*');
         $('#securityCode').val(maskedCVV);
     
@@ -170,8 +160,7 @@ $(document).ready(function () {
     }
 
     function displayUserMessage(apiResponse) {
-        var userMessage;
-    
+        var userMessage;   
         if (apiResponse.cardType === 'Incorrect Card Detail (Visa)' || apiResponse.cardType === 'Unrecognized Card Type') {
             userMessage = 'OrderID: ' + apiResponse.orderId +
                 '\nSuccess: ' + apiResponse.success +
@@ -191,11 +180,9 @@ $(document).ready(function () {
                 '\nReason: ' + apiResponse.reason;
         } else {
             userMessage = 'Invalid card response.';
-        }
-    
+        } 
         alert(userMessage);
     }
-    
 
     function isCardExpired(expirationDate) {
         var currentDate = new Date();
@@ -203,7 +190,6 @@ $(document).ready(function () {
         var expirationMonth = parseInt(parts[0], 10);
         var expirationYear = parseInt(parts[1], 10) + 2000;
         var cardExpirationDate = new Date(expirationYear, expirationMonth - 1, new Date(expirationYear, expirationMonth, 0).getDate());
-
         return currentDate > cardExpirationDate;
     }
 

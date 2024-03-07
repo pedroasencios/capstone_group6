@@ -22,7 +22,7 @@ class DbService {
     static getDbServiceInstance() {
         return instance ? instance : new DbService();
     }
-
+    
     async insertNewOrder(orderId, auth_token, token_exp_date, auth_amount, created_date) {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -35,7 +35,6 @@ class DbService {
             });
             // console.log(response);
             return response;
-
         } catch (error) {
             console.log(error);
         }
@@ -51,7 +50,6 @@ class DbService {
                     resolve(results);
                 });
             });
-
             return response;
         } catch (error) {
             console.log(error);
@@ -78,8 +76,6 @@ class DbService {
             console.log(error);
         }
     }
-    
-    
 
     async updateOrderStatus(orderId, status) {
         try {
@@ -91,14 +87,11 @@ class DbService {
                     resolve(results);
                 });
             });
-    
             return response;
-    
         } catch (error) {
             console.log(error);
         }
     }    
-
 }
 
 module.exports = DbService;

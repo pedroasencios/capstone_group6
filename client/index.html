@@ -1,164 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Page Website Testing</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="js/validation.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/loadapp.js"></script>
-    <script src="js/navigate.js"></script>
-    <script src="js/orderlist.js"></script>
-    <script src="js/warehouse.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet" />
-</head>
-
-<body>
-
-    <div id="page-0" class="pageBody">
-        <div id="header">Group 6 - Project 2</div>
-        <div class="spacer10px"></div>
-        <div onClick="navigateForward(1)">Go to Order Entry UI</div>
-        <div class="spacer10px"></div>
-        <div onClick="navigateForward(2)">Go to Order List UI</div>
-        <div class="spacer10px"></div>
-        <div onClick="navigateForward(3)">Go to Warehouse UI</div>
-    </div>
-
-    <div id="page-1" class="pageBody">
-        <div>Order Entry UI</div>
-        <div onClick="navigateBackward()">Go back</div>
-        <div class="form-container">
-            <form id="orderForm">
-                <div class="form-group">
-                    <label for="orderId">Order ID:</label>
-                    <input type="text" id="orderId" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" required>
-                </div>
-                <div class="form-group">
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" required>
-                </div>
-                <div class="form-group creditCardContainer">
-                    <label for="creditCard">Credit Card Number:</label>
-                    <input type="text" id="creditCard" required>
-                </div>
-                <div class="form-group cardTypeIcons">
-                    <img id="mastercardIcon" class="cardTypeIcon" src="images/mastercard_logo.png" alt="Mastercard Logo">
-                    <img id="visaIcon" class="cardTypeIcon" src="images/visa_logo.png" alt="Visa Logo">
-                    <img id="amexIcon" class="cardTypeIcon" src="images/amex_logo.png" alt="American Express Logo">
-                </div>
-                <div class="form-group">
-                    <label for="expirationDate">Expiration Date:</label>
-                    <input type="text" id="expirationDate" placeholder="MM/YY" required>
-                </div>
-                <div class="form-group">
-                    <label for="securityCode">Security Code:</label>
-                    <input type="text" id="securityCode" required>
-                </div>
-                <div class="form-group">
-                    <label for="zipCode">Zip Code:</label>
-                    <input type="text" id="zipCode" required>
-                </div>
-                <button type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
-                <button type="button" id="resetButton" onclick="resetForm()" style="display: none;">Reset Form</button>
-            </form>
-        </div>    
-    </div>
-
-    <div id="page-2" class="pageBody">
-        <div id="loginContainer" style="position: relative;">
-            <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
-            <h1>Login</h1>
-            <label for="username">Username:</label>
-            <input type="text" id="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            <button type="button" id="loginButton" onclick="attemptLogin()">Login</button>
-        </div>
-
-        <div id="orderListContent" style="display: none;">
-            <div id="filters">
-                <label for="statusFilter">Filter by Status:</label>
-                <select id="statusFilter">
-                    <option value="all">All</option>
-                    <option value="success">Success</option>
-                    <option value="pending">Pending</option>
-                    <option value="failed">Failed</option>
-                </select>
-
-                <label for="tokenFilter">Filter by Token:</label>
-                <input type="text" id="tokenFilter">
-                <button type="button" id="filterTokenButton">Filter by Token</button>
-
-                <label for="expirationDateFilter">Filter by Expiration Date:</label>
-                <input type="text" id="expirationDateFilter" placeholder="YYYY-MM-DD">
-                <button type="button" id="filterExpirationDateButton">Filter by Expiration Date</button>
-                <label for="createdDateFilter">Filter by Created Date:</label>
-                <input type="text" id="createdDateFilter" placeholder="YYYY-MM-DD">
-                <button type="button" id="filterCreatedDateButton" onclick="containsCreatedDate()">Filter by Created Date</button>
-                <button type="button" id="clearFiltersButton" onclick="clearFilters()">Clear</button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Capstone Project</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="js/validation.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="js/loadapp.js"></script>
+        <script src="js/navigate.js"></script>
+        <script src="js/orderlist.js"></script>
+        <script src="js/warehouse.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+        <link href="css/orderentry.css" rel="stylesheet" />
+        <link href="css/orderlist.css" rel="stylesheet" />
+        <link href="css/warehouse.css" rel="stylesheet" />
+        <link href="css/homepage.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div id="page-0" class="pageBody">
+            <div class="content-container">
+                <header>
+                    <h1>Capstone Project for Group 6</h1>
+                    <p>Explore the options below to get started.</p>
+                </header>
+                <nav id="navigation-container">
+                    <div class="nav-item" onClick="navigateForward(1)">Order Entry UI</div>
+                    <div class="nav-item" onClick="navigateForward(2)">Order List UI</div>
+                    <div class="nav-item" onClick="navigateForward(3)">Warehouse UI</div>
+                </nav>
             </div>
-            <div id="sorting">
-                <label for="sortOrder">Sort Order:</label>
-                <select id="sortOrder">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
+        </div>
+        
+        <div id="page-1" class="pageBody">
+            <button class="button-60" role="button" onclick="navigateBackward()">Go back</button> 
+            <div class="order-entry-header">Order Form</div> 
+            <div class="form-container">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="orderId">Order ID:</label>
+                        <input type="text" id="orderId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group creditCardContainer">
+                        <label for="creditCard">Credit Card Number:</label>
+                        <input type="text" id="creditCard" required>
+                    </div>
+                    <div class="form-group cardTypeIcons">
+                        <img id="mastercardIcon" class="cardTypeIcon" src="images/mastercard_logo.png" alt="Mastercard Logo">
+                        <img id="visaIcon" class="cardTypeIcon" src="images/visa_logo.png" alt="Visa Logo">
+                        <img id="amexIcon" class="cardTypeIcon" src="images/amex_logo.png" alt="American Express Logo">
+                    </div>
+                    <div class="form-group">
+                        <label for="expirationDate">Expiration Date:</label>
+                        <input type="text" id="expirationDate" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="securityCode">Security Code:</label>
+                        <input type="text" id="securityCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code:</label>
+                        <input type="text" id="zipCode" required>
+                    </div>
+                    <button class="button-63" type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
+                    <button class="button-63" type="button" id="resetButton" onclick="resetForm()" style="display: none;">Reset Form</button>
+                </form>
+            </div>    
+        </div>
+
+        <div id="page-2" class="pageBody">
+            <div id="loginContainer" style="position: relative;">
+                <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
+                <h1>Order List Login</h1>
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="button" id="loginButton" onclick="attemptLogin()">Login</button>
             </div>
-            <button type="button" id="logOutButton" onclick="logOut()" style="display: none;">Log Out</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Token</th>
-                        <th>Expiration Date</th>
-                        <th>Created Date</th>
-                        <th>Authorized Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="orderTableBody">
-                    <!-- order list with change dynamically here once it is connected to db -->
-                </tbody>
-            </table>
+            <div id="orderListContent" style="display: none;">
+                <div id="filters" class="compact-filters">
+                    <div class="filter-group">
+                        <label for="statusFilter">Status:</label>
+                        <select id="statusFilter">
+                            <option value="all">All</option>
+                            <option value="success">Success</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="tokenFilter">Token:</label>
+                        <input type="text" id="tokenFilter">
+                    </div>
+                
+                    <div class="filter-group">
+                        <label for="expirationDateFilter">Expiration Date:</label>
+                        <input type="text" id="expirationDateFilter" placeholder="YYYY-MM-DD">
+                    </div>
+                
+                    <div class="filter-group">
+                        <label for="createdDateFilter">Created Date:</label>
+                        <input type="text" id="createdDateFilter" placeholder="YYYY-MM-DD">
+                    </div>
+                
+                    <div class="filter-buttons">
+                        <button type="button" id="filterTokenButton">Filter by Token</button>
+                        <button type="button" id="filterExpirationDateButton">Filter by Expiration Date</button>
+                        <button type="button" id="filterCreatedDateButton" onclick="containsCreatedDate()">Filter by Created Date</button>
+                        <button type="button" id="clearFiltersButton" onclick="clearFilters()">Clear</button>
+                    </div>
+                </div>
+                
+                <div id="sorting">
+                    <label for="sortOrder">Sort Order:</label>
+                    <select id="sortOrder">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+
+                <button type="button" id="logOutButton" onclick="logOut()" style="display: none;">Log Out</button>
+
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Token</th>
+                            <th>Expiration Date</th>
+                            <th id="createdDateHeader" data-sort="created_date">Created Date <span class="sort-control" data-sort="created_date">⇅</span></th>
+                            <th>Authorized Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <!-- order list with change dynamically here once it is connected to db -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <div id="page-3" class="pageBody">
-        <div>Warehouse UI</div>
-        <div onClick="navigateBackward()">Go back</div>
-        <div id="passwordProtection">
-            <label for="passwordInput">Enter Password:</label>
-            <input type="password" id="passwordInput">
+        <div id="page-3" class="pageBody">
+            <div id="loginContainerWarehouse" style="position:relative">
+                <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
+                <h1>Warehouse Login</h1>
+                <label for="usernameInput">Username:</label>
+                <input type="text" id="usernameInput" required>
+                <label for="passwordInput">Password:</label>
+                <input type="password" id="passwordInput" required>
+                <button type="button" id="loginButtonWarehouse" onclick="attemptLoginWarehouse()">Login</button>
+            </div>
+            <div id="warehouseContent" style="display: none;">
+                <label for="orderIdWarehouse">Order ID:</label>
+                <input type="text" id="orderIdWarehouse" required>
+        
+                <label for="finalAmountWarehouse">Final Amount:</label>
+                <input type="text" id="finalAmountWarehouse" required>
+        
+                <button type="button" id="submitButtonWarehouse">Submit</button>
+                <button type="button" id="logOutButtonWarehouse" onclick="logOutWarehouse()">Log Out</button>
+            </div>
         </div>
-    
-        <!-- Warehouse UI Form -->
-        <div id="warehouseForm">
-            <label for="orderIdWarehouse">Order ID:</label>
-            <input type="text" id="orderIdWarehouse" required>
-    
-            <label for="finalAmountWarehouse">Final Amount:</label>
-            <input type="text" id="finalAmountWarehouse" required>
-    
-            <button type="button" id="submitButtonWarehouse">Submit</button>
-        </div>
-    </div>
-
-    
-
-</body>
-
+    </body>
 </html>

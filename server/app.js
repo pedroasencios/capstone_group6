@@ -29,12 +29,10 @@ app.post('/updateStatus', async (request, response) => {
     try {
         // Fetch the authorized amount from the database based on orderId
         const result = await db.getAuthAmountByOrderId(orderId);
-
         console.log('Result:', result); // Add this line
 
         if (result.length > 0) {
-            const authorizedAmount = result[0].auth_amount;
-            
+            const authorizedAmount = result[0].auth_amount;  
             // Compare finalAmount with authorizedAmount
             if (finalAmount > authorizedAmount) {
                 // Display error message
@@ -53,14 +51,10 @@ app.post('/updateStatus', async (request, response) => {
     }
 });
 
-
-
 // read
 app.get('/getAll', (request, response) => {
     const db = dbService.getDbServiceInstance();
-
     const result = db.getAllData();
-
     result
         .then(data => response.json({ data: data }))
         .catch(err => response.json({ success: false, error: err.message }));
@@ -68,7 +62,6 @@ app.get('/getAll', (request, response) => {
 
 app.get('/getAllOrders', async (request, response) => {
     const db = dbService.getDbServiceInstance();
-
     try {
         const result = await db.getAllOrders();
         response.json({ success: true, data: result });
@@ -80,5 +73,4 @@ app.get('/getAllOrders', async (request, response) => {
 // update
 
 // delete
-
 app.listen(process.env.PORT, () => console.log('app is running'));

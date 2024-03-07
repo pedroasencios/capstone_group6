@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var isLoggedIn = false;
-
+    
     function renderOrderList() {
         if (!isLoggedIn) {
             $('#loginContainer').show();
@@ -8,7 +8,7 @@ $(document).ready(function () {
             $('#logOutButton').hide();
             return;
         }
-    
+
         var statusFilter = $('#statusFilter').val();
         var sortOrder = $('#sortOrder').val();
     
@@ -86,11 +86,16 @@ $(document).ready(function () {
         return createdDate.toLowerCase().includes(createdDateFilter);
     }
     function clearFilters() {
-        $('#statusFilter').val('all');
-        $('#tokenFilter').val('');
-        $('#expirationDateFilter').val('');
-        $('#sortOrder').val('asc');
-        renderOrderList();
+        document.getElementById('statusFilter').value = 'all';
+        document.getElementById('tokenFilter').value = '';
+        document.getElementById('expirationDateFilter').value = '';
+        document.getElementById('createdDateFilter').value = '';
+        document.getElementById('sortOrder').value = 'asc';
+        ['statusFilter', 'tokenFilter', 'expirationDateFilter', 'createdDateFilter', 'sortOrder'].forEach(function (elementId) {
+            var element = document.getElementById(elementId);
+            var event = new Event('change');
+            element.dispatchEvent(event);
+        });
     }
 
     $('#statusFilter, #sortOrder').on('change', renderOrderList);
@@ -102,6 +107,15 @@ $(document).ready(function () {
         if (event.key === 'Enter') {
             renderOrderList();
         }
+    });
+    $('#createdDateHeader').click(function () {
+        // Toggle the sort order between 'asc' and 'desc'
+        var currentSortOrder = $('#sortOrder').val();
+        var newSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+        $('#sortOrder').val(newSortOrder);
+    
+        // Trigger the renderOrderList function to update the order list
+        renderOrderList();
     });
 
     $('#password').on('keyup', function (event) {
@@ -115,7 +129,7 @@ $(document).ready(function () {
     function attemptLogin() {
         var enteredUsername = $('#username').val();
         var enteredPassword = $('#password').val();
-        if (enteredUsername === "yo" && enteredPassword === "pedro") {
+        if (enteredUsername === "capstone" && enteredPassword === "pedro") {
             isLoggedIn = true;
             renderOrderList();
         } else {
