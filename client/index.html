@@ -36,29 +36,28 @@
         </div>
         
         <div id="page-1" class="pageBody">
-            <button class="button-60" role="button" onclick="navigateBackward()">Go back</button> 
-            <div class="order-entry-header">Order Form</div> 
+            <button class="button-back" role="button" onclick="navigateBackward()">&#8249;</button>
             <div class="form-container">
                 <form id="orderForm">
+                    <div class="order-entry-header">Order Form</div> 
                     <div class="form-group">
-                        <label for="orderId">Order ID:</label>
+                        <label for="orderId">Order ID</label>
                         <input type="text" id="orderId" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" id="firstName" required>
+                        <label for="orderId">Name</label>
+                        <input type="text" id="firstName" placeholder="First name" required>
                     </div>
                     <div class="form-group">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" id="lastName" required>
+                        <input type="text" id="lastName" placeholder="Last name" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input type="text" id="address" required>
+                        <label for="orderId">Address</label>
+                        <input type="text" id="address" placeholder="Street Address" required>
                     </div>
                     <div class="form-group creditCardContainer">
-                        <label for="creditCard">Credit Card Number:</label>
-                        <input type="text" id="creditCard" required>
+                        <label for="creditCard">Card</label>
+                        <input type="text" id="creditCard" placeholder="Card Number" required>
                     </div>
                     <div class="form-group cardTypeIcons">
                         <img id="mastercardIcon" class="cardTypeIcon" src="images/mastercard_logo.png" alt="Mastercard Logo">
@@ -66,17 +65,19 @@
                         <img id="amexIcon" class="cardTypeIcon" src="images/amex_logo.png" alt="American Express Logo">
                     </div>
                     <div class="form-group">
-                        <label for="expirationDate">Expiration Date:</label>
+                        <label for="expirationDate">Expiration Date</label>
                         <input type="text" id="expirationDate" placeholder="MM/YY" required>
                     </div>
                     <div class="form-group">
                         <label for="securityCode">Security Code:</label>
-                        <input type="text" id="securityCode" required>
+                        <input type="text" id="securityCode" placeholder="CVV" required>
                     </div>
                     <div class="form-group">
-                        <label for="zipCode">Zip Code:</label>
-                        <input type="text" id="zipCode" required>
-                    </div>
+                        <label for="zipCode">
+                            <img src="images/zipcode.png" alt="Zip Code Icon" class="icon">
+                        </label>
+                        <input type="text" id="zipCode" placeholder="Zip Code" required>
+                    </div>                    
                     <button class="button-63" type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
                     <button class="button-63" type="button" id="resetButton" onclick="resetForm()" style="display: none;">Reset Form</button>
                 </form>

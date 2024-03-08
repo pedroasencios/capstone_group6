@@ -2,12 +2,14 @@
 
 body {
     background-image: url('/client/images/background.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
     margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;

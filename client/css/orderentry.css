@@ -11,7 +11,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
-    color: #000; /* Set the font color to black */
+    color: #000;
 }
 
 .pageBody {
@@ -58,22 +58,24 @@ body {
 }
 
 .form-container {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
     font-size: 16px;
+    margin-top: -30px; /* moves the form higher */
 }
 
 #orderForm {
     width: 100%;
     max-width: 500px;
     padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f2f7ff;
+    border: 1px solid rgb(226, 226, 238);
+    border-radius: 25px;
+    background-color: #f7faff;
     margin:auto;
-
+    box-shadow: 0 0 20px rgba(167, 169, 203, 0.5); /* glow effect */
+    position: relative;
 }
 
 #orderForm .form-group {
@@ -87,64 +89,76 @@ body {
     font-optical-sizing: auto;
     font-weight: 430;
     font-style: normal;
-    font-size: 15px; /* Adjust the size as needed */
+    font-size: 14px; 
 }
 
 #orderForm input {
-    width: 100%;
-    padding: 10px;
+    width: 90%;
+    padding: 12px;
     font-family: "Noto Sans JP", sans-serif;
     font-optical-sizing: auto;
     font-weight: 330;
     font-style: normal;
-    font-size: 15px; /* Adjust the size as needed */
+    font-size: 14px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: #ececec;
+    border-radius: 12px;
     box-sizing: border-box;
+    box-shadow: none; 
+}
+
+#orderForm input::placeholder {
+    font-weight: 450;
+    color:#6a6a6a;
 }
 
 #orderForm button {
-    background-color: green;
+    background-color: rgb(17, 174, 17);
     color: white;
     padding: 11px;
     font-family: "Noto Sans JP", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    font-size: 14px; /* Adjust the size as needed */
+    font-size: 14px;
     border: none;
     border-radius: 50px;
+}
+
+#orderForm .form-group label {
+    position: relative;
+}
+
+#orderForm .form-group label .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+#orderForm input:focus + label {
+    top: 2px;
+    left: 5px;
+    font-size: 12px;
 }
 
 #orderForm button:hover {
     background-color: #5dce64;
 }
 
-.button-60 {
-    background-color: #fbeee0;
-    border: 2px solid #422800;
-    border-radius: 30px;
-    box-shadow: #422800 4px 4px 0 0;
-    color: #422800;
+.button-back {
+    background-color: #e3e9ee;
+    color: #5d4eb1;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 30px;
     cursor: pointer;
-    display: inline-block;
-    font-weight: 600;
-    font-size: 16px;
-    padding: 0 18px;
-    line-height: 40px;
-    text-align: center;
-    text-decoration: none;
-    user-select: none;
-    touch-action: manipulation;
+    transition: background-color 0.3s ease;
 }
 
-.button-60:hover {
-    background-color: #b8b8b8;
-}
-
-.button-60:active {
-    box-shadow: #422800 2px 2px 0 0;
-    transform: translate(2px, 2px);
+.button-back:hover {
+    background-color: #abc2d2;
 }
 
 @media (min-width: 768px) {
@@ -155,12 +169,15 @@ body {
 }
 
 .order-entry-header {
-    font-family: "Noto Sans JP", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style:normal;
-    font-size: 30px;
-    color: #3b2c2c; /* Set the font color to black */
     text-align: center;
-    margin-bottom: 9px;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #56d8e4, #9f01ea);
+    color: transparent;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-background-clip: text; 
+    background-clip: text;
 }
