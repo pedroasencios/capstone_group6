@@ -2,7 +2,7 @@
 
 body {
     background-image: url('/client/images/background.png');
-    background-size: contain;
+    background-size: cover; /* Ensures the background image covers the entire background area */
     background-position: center;
     background-repeat: no-repeat;
     font-family: "Poppins", sans-serif;

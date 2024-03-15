@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var isLoggedIn = false;
-    
+
     function renderOrderList() {
         if (!isLoggedIn) {
             $('#loginContainer').show();
@@ -10,8 +10,7 @@ $(document).ready(function () {
         }
 
         var statusFilter = $('#statusFilter').val();
-        var sortOrder = $('#sortOrder').val();
-    
+
         // grabs the orders from mysql server hosted on xampp
         $.ajax({
             url: 'http://localhost:5000/getAllOrders',
@@ -23,25 +22,30 @@ $(document).ready(function () {
                         return statusFilter === 'all' || order.status === statusFilter;
                     });
 
+                    // sort by created_date
+                    var sortOrder = $('#sortOrder').val();
                     filteredOrders.sort(function (a, b) {
-                        var aValue = new Date(a.created_date).toLocaleString();
-                        var bValue = new Date(b.created_date).toLocaleString();
-    
-                        return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                        var dateA = new Date(a.created_date);
+                        var dateB = new Date(b.created_date);
+                        if (sortOrder === 'asc') {
+                            return dateA - dateB;
+                        } else {
+                            return dateB - dateA;
+                        }
                     });
-    
+
                     // filter token
                     var tokenFilter = $('#tokenFilter').val().toLowerCase();
                     filteredOrders = filteredOrders.filter(function (order) {
                         return containsToken(order.auth_token, tokenFilter);
                     });
-    
+
                     // filter the exp date
                     var expirationDateFilter = $('#expirationDateFilter').val().toLowerCase();
                     filteredOrders = filteredOrders.filter(function (order) {
                         return containsExpirationDate(order.token_exp_date, expirationDateFilter);
                     });
-    
+
                     // filter createddate
                     var createdDateFilter = $('#createdDateFilter').val();
                     filteredOrders = filteredOrders.filter(function (order) {
@@ -49,19 +53,25 @@ $(document).ready(function () {
                     });
 
                     $('#orderTableBody').empty();
-    
+
                     filteredOrders.forEach(function (order) {
+                        // Rendering token_exp_date
+                        var formattedTokenExpDate = formatDate(order.token_exp_date, true);
+                    
+                        // Rendering created_date
+                        var formattedCreatedDate = formatDate(order.created_date);
+                    
                         var row = `<tr>
                             <td>${order.orderId}</td>
                             <td>${order.auth_token}</td>
-                            <td>${order.token_exp_date}</td>
-                            <td>${order.created_date}</td>
+                            <td>${formattedTokenExpDate}</td> <!-- Render token_exp_date -->
+                            <td>${formattedCreatedDate}</td> <!-- Render created_date -->
                             <td>${order.auth_amount.toFixed(2)}</td>
                             <td>${order.status}</td>
                         </tr>`;
                         $('#orderTableBody').append(row);
                     });
-
+                    
                     $('#loginContainer').hide();
                     $('#orderListContent').show();
                     $('#logOutButton').show();
@@ -78,13 +88,16 @@ $(document).ready(function () {
     function containsToken(authToken, tokenFilter) {
         return authToken.toLowerCase().includes(tokenFilter);
     }
+
     function containsExpirationDate(expirationDate, expirationDateFilter) {
         return expirationDate.toLowerCase().includes(expirationDateFilter);
     }
+
     function containsCreatedDate(createdDate) {
         var createdDateFilter = $('#createdDateFilter').val().toLowerCase();
         return createdDate.toLowerCase().includes(createdDateFilter);
     }
+
     function clearFilters() {
         document.getElementById('statusFilter').value = 'all';
         document.getElementById('tokenFilter').value = '';
@@ -98,7 +111,7 @@ $(document).ready(function () {
         });
     }
 
-    $('#statusFilter, #sortOrder').on('change', renderOrderList);
+    $('#statusFilter').on('change', renderOrderList);
     $('#filterTokenButton').click(renderOrderList);
     $('#filterExpirationDateButton').click(renderOrderList);
     $('#filterCreatedDateButton').click(renderOrderList);
@@ -108,15 +121,8 @@ $(document).ready(function () {
             renderOrderList();
         }
     });
-    $('#createdDateHeader').click(function () {
-        // Toggle the sort order between 'asc' and 'desc'
-        var currentSortOrder = $('#sortOrder').val();
-        var newSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
-        $('#sortOrder').val(newSortOrder);
-    
-        // Trigger the renderOrderList function to update the order list
-        renderOrderList();
-    });
+
+    $('#sortOrder').on('change', renderOrderList);
 
     $('#password').on('keyup', function (event) {
         if (event.key === 'Enter') {
@@ -132,6 +138,7 @@ $(document).ready(function () {
         if (enteredUsername === "capstone" && enteredPassword === "pedro") {
             isLoggedIn = true;
             renderOrderList();
+            $('#goBackButton').hide();
         } else {
             alert("Incorrect username or password. Please try again.");
         }
@@ -144,8 +151,33 @@ $(document).ready(function () {
         $('#loginContainer').show();
         $('#orderListContent').hide();
         $('#logOutButton').hide();
+        $('#goBackButton').show();
     }
 
     $('#loginButton').click(attemptLogin);
     $('#logOutButton').click(logOut);
+
+    function formatDate(dateString, isTokenExpDate = false) {
+        var date = new Date(dateString);
+        var options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: 'numeric',
+            minute: '2-digit',
+            second: 'numeric',
+            hour12: true, // Display in 12-hour format
+            timeZone: 'America/New_York' // Setting timezone to EST
+        };
+
+        // If it's token_exp_date, adjust the format
+        if (isTokenExpDate) {
+            return date.toLocaleString('en-US', options);
+        } else {
+            // For created_date, manually format the date in EST
+            var estOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
+            var estTime = new Date(date.getTime() - estOffset);
+            return estTime.toLocaleString('en-US', options);
+        }
+    }
 });
