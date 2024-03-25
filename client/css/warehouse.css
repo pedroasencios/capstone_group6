@@ -1,0 +1,91 @@
+/* orderlist.css */
+
+#page-3 .pageBody {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+#loginContainerWarehouse{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    background: rgba(110, 105, 126, 0.13);
+    padding: 70px 55px;
+    border-radius: 35px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(88, 86, 99, 0.6);
+    text-align: center;
+}
+
+#loginContainerWarehouse h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+#loginContainerWarehouse label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+}
+
+#loginContainerWarehouse input {
+    width: 90%;
+    height: 50px;
+    background-color: rgba(252, 252, 252, 0.555);
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#loginButtonWarehouse {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loginButtonWarehouse:hover {
+    background-color: #86badc;
+}
+
+.button-back-warehouse{
+    background-color: #e3e9ee;
+    color: #5d4eb1;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-back-warehouse:hover {
+    background-color: #abc2d2;
+}
+
+h1 {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #409aa2, #9f01ea);
+    color: transparent;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
