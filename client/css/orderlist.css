@@ -1,4 +1,4 @@
-/* page1.css */
+/* orderlist.css */
 
 #page-2 .pageBody {
     background-color: #f2f2f2;
@@ -6,79 +6,168 @@
 }
 
 #loginContainer {
-    position: relative;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    background: rgba(110, 105, 126, 0.13);
+    padding: 70px 55px;
+    border-radius: 35px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(88, 86, 99, 0.6);
+    text-align: center;
 }
 
 #loginContainer h1 {
-    font-size: 24px;
+    font-size: 32px;
     margin-bottom: 20px;
 }
 
 #loginContainer label {
     display: block;
-    margin-bottom: 8px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
 }
 
 #loginContainer input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    width: 90%;
+    height: 50px;
+    background-color: rgba(252, 252, 252, 0.555);
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
 }
 
 #loginButton {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-back-orderlist {
+    background-color: #e3e9ee;
+    color: #5d4eb1;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-back-orderlist:hover {
+    background-color: #abc2d2;
 }
 
 #loginButton:hover {
-    background-color: #2980b9;
+    background-color: #86badc;
 }
 
 #orderListContent {
     display: none;
 }
 
-#filters, #sorting {
+#filters {
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 
-#filters label, #sorting label {
-    display: block;
-    margin-bottom: 8px;
+.filter-group {
+    flex: 0 0 calc(33.33% - 10px); /* Three items per row */
+    margin-bottom: 20px;
+    margin-right: 10px; /* Increase margin between filter-group elements */
 }
 
-#filters select, #sorting select, #filters input, #sorting input {
-    width: 100%;
+.filter-group label {
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    width: calc(100% - 20px); /* Adjusted width to accommodate margin */
     padding: 8px;
-    margin-bottom: 12px;
+    margin-top: 3px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
 
-#filters button, #sorting button, #logOutButton {
+#sortOrder,
+#statusFilter {
+    width: calc(50% - 5px); /* Reduce width */
+    margin-top: 3px; /* Adjust margin to align with other inputs */
+    margin-right: 10px; /* Increase margin between sort order and status */
+}
+
+.filter-group:last-child {
+    flex: 1 0 100%; /* Make the last filter group take full width */
+    margin-right: 0; /* Remove right margin for last filter group */
+}
+
+#clearFiltersButton {
     background-color: #3498db;
     color: #fff;
-    padding: 10px 15px;
+    padding: 9px 19px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#filters button:hover, #sorting button:hover, #logOutButton:hover {
+#clearFiltersButton:hover {
     background-color: #2980b9;
 }
+
+#sorting label {
+    margin-right: 10px;
+}
+
+#sortOrder,
+#statusFilter {
+    width: 97%;
+    background-color: rgba(252, 252, 252, 0.555);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 3px; /* Adjust the margin to make them closer */
+    font-size: 14px;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+
+#logOutButton {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 0; /* Adjust as needed */
+    margin: 55px; /* Add margin for spacing */
+    background: linear-gradient(to right, #f34404, #b28e85);
+    color: #fff;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#logOutButton:hover {
+    background-color: #2980b9;
+}
+
 
 table {
     width: 100%;
@@ -87,7 +176,8 @@ table {
     background-color: #fff; /* sets table color */
 }
 
-table th, table td {
+table th,
+table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
@@ -105,17 +195,6 @@ table th {
 .compact-filters {
     display: flex;
     flex-wrap: wrap;
-}
-
-.filter-group {
-    margin-right: 20px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.filter-group label {
-    margin-right: 5px;
 }
 
 .filter-buttons button {
@@ -140,7 +219,7 @@ table th {
     font-size: 14px;
 }
 
-.order-table th, .order-table td {
+.order-table td {
     border: 1px solid #ddd;
     padding: 15px;
     text-align: left;
@@ -148,7 +227,7 @@ table th {
 }
 
 .order-table th {
-    background-color: #5a63c4;
+    background: linear-gradient(45deg, #4a90e2, #029eb3, #4a90e2);
     color: white;
 }
 
@@ -179,7 +258,36 @@ table th {
         font-size: 12px;
     }
 
-    .order-table th, .order-table td {
+    .order-table th,
+    .order-table td {
         padding: 10px;
     }
+}
+
+.order-list-header {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #409aa2, #9f01ea);
+    color: transparent;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.order-list-ui-header {
+    text-align: left;
+    font-size: 60px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #5a3a8a, #042768);
+    color: transparent;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-background-clip: text;
+    background-clip: text;
 }

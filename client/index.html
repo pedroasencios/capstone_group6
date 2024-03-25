@@ -85,17 +85,39 @@
         </div>
 
         <div id="page-2" class="pageBody">
-            <div id="loginContainer" style="position: relative;">
-                <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
-                <h1>Order List Login</h1>
+            <div id="loginContainer">
+                <div class="order-list-header">Order Form</div> 
                 <label for="username">Username:</label>
                 <input type="text" id="username" required>
                 <label for="password">Password:</label>
                 <input type="password" id="password" required>
                 <button type="button" id="loginButton" onclick="attemptLogin()">Login</button>
-            </div>
+            </div>  
+            <div>   
+                <button id="goBackButton" class="button-back-orderlist" role="button" onclick="navigateBackward()">&#8249;</button> 
+            </div>      
             <div id="orderListContent" style="display: none;">
+                <div class="order-list-ui-header">Orders</div> 
                 <div id="filters" class="compact-filters">
+                    <div class="filter-group">
+                        <label for="tokenFilter">Token:</label>
+                        <input type="text" id="tokenFilter" placeholder="Authorization Token">
+                    </div>
+                    <div class="filter-group">
+                        <label for="expirationDateFilter">Expiration Date:</label>
+                        <input type="text" id="expirationDateFilter" placeholder="YYYY-MM-DD">
+                    </div>
+                    <div class="filter-group">
+                        <label for="createdDateFilter">Created Date:</label>
+                        <input type="text" id="createdDateFilter" placeholder="YYYY-MM-DD">
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortOrder">Sort Order:</label>
+                        <select id="sortOrder">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
                     <div class="filter-group">
                         <label for="statusFilter">Status:</label>
                         <select id="statusFilter">
@@ -105,47 +127,18 @@
                             <option value="failed">Failed</option>
                         </select>
                     </div>
-                    
                     <div class="filter-group">
-                        <label for="tokenFilter">Token:</label>
-                        <input type="text" id="tokenFilter">
-                    </div>
-                
-                    <div class="filter-group">
-                        <label for="expirationDateFilter">Expiration Date:</label>
-                        <input type="text" id="expirationDateFilter" placeholder="YYYY-MM-DD">
-                    </div>
-                
-                    <div class="filter-group">
-                        <label for="createdDateFilter">Created Date:</label>
-                        <input type="text" id="createdDateFilter" placeholder="YYYY-MM-DD">
-                    </div>
-                
-                    <div class="filter-buttons">
-                        <button type="button" id="filterTokenButton">Filter by Token</button>
-                        <button type="button" id="filterExpirationDateButton">Filter by Expiration Date</button>
-                        <button type="button" id="filterCreatedDateButton" onclick="containsCreatedDate()">Filter by Created Date</button>
                         <button type="button" id="clearFiltersButton" onclick="clearFilters()">Clear</button>
                     </div>
-                </div>
-                
-                <div id="sorting">
-                    <label for="sortOrder">Sort Order:</label>
-                    <select id="sortOrder">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-                </div>
-
+                </div>   
                 <button type="button" id="logOutButton" onclick="logOut()" style="display: none;">Log Out</button>
-
                 <table class="order-table">
                     <thead>
                         <tr>
                             <th>Order ID</th>
                             <th>Token</th>
                             <th>Expiration Date</th>
-                            <th id="createdDateHeader" data-sort="created_date">Created Date <span class="sort-control" data-sort="created_date">⇅</span></th>
+                            <th>Created</th>
                             <th>Authorized Amount</th>
                             <th>Status</th>
                         </tr>
@@ -154,12 +147,11 @@
                         <!-- order list with change dynamically here once it is connected to db -->
                     </tbody>
                 </table>
-            </div>
+            </div>            
         </div>
 
         <div id="page-3" class="pageBody">
             <div id="loginContainerWarehouse" style="position:relative">
-                <div onClick="navigateBackward()" style="cursor: pointer;">&#8592;</div>
                 <h1>Warehouse Login</h1>
                 <label for="usernameInput">Username:</label>
                 <input type="text" id="usernameInput" required>
@@ -167,10 +159,11 @@
                 <input type="password" id="passwordInput" required>
                 <button type="button" id="loginButtonWarehouse" onclick="attemptLoginWarehouse()">Login</button>
             </div>
+            <button class="button-back-warehouse" role="button" onclick="navigateBackward()">&#8249;</button>
             <div id="warehouseContent" style="display: none;">
                 <label for="orderIdWarehouse">Order ID:</label>
                 <input type="text" id="orderIdWarehouse" required>
-        
+                
                 <label for="finalAmountWarehouse">Final Amount:</label>
                 <input type="text" id="finalAmountWarehouse" required>
         
