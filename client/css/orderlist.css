@@ -11,12 +11,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 400px;
-    background: rgba(110, 105, 126, 0.13);
+    background: linear-gradient(45deg, #f0f0f090, #ffffff, #ffffff27);
     padding: 70px 55px;
     border-radius: 35px;
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(88, 86, 99, 0.6);
+    box-shadow: 0 0 40px rgb(107, 105, 117);
     text-align: center;
 }
 
@@ -36,7 +35,7 @@
 #loginContainer input {
     width: 90%;
     height: 50px;
-    background-color: rgba(252, 252, 252, 0.555);
+    background-color: rgba(252, 252, 252, 0.676);
     border-radius: 10px;
     padding: 0 10px;
     margin-top: 8px;
@@ -153,17 +152,17 @@
 #logOutButton {
     position: absolute;
     top: 10px; /* Adjust as needed */
-    right: 0; /* Adjust as needed */
-    margin: 55px; /* Add margin for spacing */
-    background: linear-gradient(to right, #f34404, #b28e85);
+    right: 20px; /* Adjust as needed */
+    margin: 25px; /* Add margin for spacing */
+    background: linear-gradient(to right, #bd4418, #aa857b);
     color: #fff;
-    padding: 11px 16px;
+    padding: 15px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 14px;
 }
-
 #logOutButton:hover {
     background-color: #2980b9;
 }
@@ -269,7 +268,7 @@ table th {
     font-size: 45px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #409aa2, #9f01ea);
+    background: linear-gradient(to right, #191a1a, #4c494d);
     color: transparent;
     display: block;
     margin: 0 auto;

@@ -5,22 +5,8 @@
     padding: 20px;
 }
 
-#loginContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 400px;
-    background: rgba(110, 105, 126, 0.13);
-    padding: 70px 55px;
-    border-radius: 35px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(88, 86, 99, 0.6);
-    text-align: center;
-}
-
-#loginContainerWarehouse{
+#loginContainer,
+#loginContainerWarehouse {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -51,7 +37,7 @@
 #loginContainerWarehouse input {
     width: 90%;
     height: 50px;
-    background-color: rgba(252, 252, 252, 0.555);
+    background-color: rgba(252, 252, 252, 0.676);
     border-radius: 10px;
     padding: 0 10px;
     margin-top: 8px;
@@ -76,7 +62,7 @@
     background-color: #86badc;
 }
 
-.button-back-warehouse{
+.button-back-warehouse {
     background-color: #e3e9ee;
     color: #5d4eb1;
     border: none;
@@ -91,12 +77,98 @@
     background-color: #abc2d2;
 }
 
-h1 {
+.warehouse-header {
     text-align: center;
     font-size: 45px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #409aa2, #9f01ea);
+    background: linear-gradient(to right, #191a1a, #4c494d);
+    color: transparent;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+#warehouseContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    padding: 70px 55px;
+    border-radius: 35px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(68, 68, 68, 0.6);
+    background-color: rgba(228, 228, 228, 0.195);
+    text-align: center;
+}
+
+#warehouseContent label {
+    display: block;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+
+#warehouseContent input[type="text"],
+#warehouseContent input[type="password"] {
+    width: 90%;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#logOutButtonWarehouse {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    margin: 25px; /* Add margin for spacing */
+    background: linear-gradient(to right, #bd4418, #aa857b);
+    color: #fff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+
+#logOutButtonWarehouse:hover {
+    background-color: #2980b9;
+}
+
+#submitButtonWarehouse {
+    width: 55%;
+    padding: 20px;
+    margin-top: 50px; /* Add margin at the top to push it down */
+    margin-bottom: -100px ;
+    background-color: #007bff98;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#submitButtonWarehouse:hover {
+    background-color: #0056b3;
+}
+
+.settlement {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #191a1a, #4c494d);
     color: transparent;
     display: block;
     margin: 0 auto;

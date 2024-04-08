@@ -22,6 +22,7 @@ app.post('/insert', (request, response) => {
         .catch(err => response.json({ success: false, error: err.message }));
 });
 
+// update
 app.post('/updateStatus', async (request, response) => {
     const { orderId, finalAmount } = request.body;
     const db = dbService.getDbServiceInstance();
@@ -35,11 +36,10 @@ app.post('/updateStatus', async (request, response) => {
             const authorizedAmount = result[0].auth_amount;  
             // Compare finalAmount with authorizedAmount
             if (finalAmount > authorizedAmount) {
-                // Display error message
                 response.json({ success: false, error: 'Final amount exceeds authorized amount.' });
             } else {
-                // Update the status in the database and display success message
-                await db.updateOrderStatus(orderId, 'success'); // Update status to 'success'
+                // updates the status to success
+                await db.updateOrderStatus(orderId, 'success');
                 response.json({ success: true, message: 'Order settled successfully.' });
             }
         } else {
@@ -70,7 +70,4 @@ app.get('/getAllOrders', async (request, response) => {
     }
 });
 
-// update
-
-// delete
 app.listen(process.env.PORT, () => console.log('app is running'));

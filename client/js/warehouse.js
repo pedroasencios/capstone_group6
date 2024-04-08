@@ -22,6 +22,10 @@ $(document).ready(function () {
                 console.error('Error validating and settling order:', error);
             }
         });
+
+        // After submitting, clear the input fields
+        $('#orderIdWarehouse').val('');
+        $('#finalAmountWarehouse').val('');
     });
 
     function attemptLoginWarehouse() {
@@ -30,6 +34,8 @@ $(document).ready(function () {
         if (enteredUsername === "capstone" && enteredPassword === "pedro") {
             isLoggedIn = true;
             renderWarehouse();
+            $('#logOutButtonWarehouse').show(); // Show logout button
+            $('.button-back-warehouse').hide(); // Hide back button
         } else {
             alert("Incorrect username or password. Please try again.");
         }
@@ -41,6 +47,8 @@ $(document).ready(function () {
         $('#passwordInput').val('');
         $('#loginContainerWarehouse').show();
         $('#warehouseContent').hide();
+        $('#logOutButtonWarehouse').hide(); // Hide logout button
+        $('.button-back-warehouse').show(); // Show back button
     }
 
     $('#loginButtonWarehouse').click(attemptLoginWarehouse);
@@ -55,12 +63,17 @@ $(document).ready(function () {
         if (!isLoggedIn) {
             $('#loginContainerWarehouse').show();
             $('#warehouseContent').hide();
+            $('.button-back-warehouse').show(); // Show back button
             return;
         }
 
         $('#loginContainerWarehouse').hide();
         $('#warehouseContent').show();
+        $('.button-back-warehouse').hide(); // Hide back button
     }
     
+    // Initial setup: Hide logout button and back button
+    $('#logOutButtonWarehouse').hide();
+    $('.button-back-warehouse').hide();
     renderWarehouse();
 });

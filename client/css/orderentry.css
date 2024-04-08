@@ -1,10 +1,3 @@
-@charset "utf-8";
-/* CSS Document */
-
-#header {
-    font-size: 40px;
-}
-
 body {
     background-color: li;
     font-size: 3vmin;
@@ -24,19 +17,130 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     font-size: 25px;
 }
-.spacer10px {
-    width: 100%;
-    height: 10px;
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
 }
 
-.spacer20px {
-    width: 100%;
-    height: 20px;
+#orderForm {
+    width: 80%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #f0f0f0a2, #ffffff, #ffffff73);
+    box-shadow: 0 0 20px hwb(199 65% 22%);
+    position: relative;
 }
 
-.spacer2em {
-    width: 100%;
-    height: 2em;
+#orderForm .form-group {
+    margin-bottom: 15px;
+}
+
+#orderForm label {
+    display:flex;
+    margin-bottom: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#orderForm input {
+    width: calc(98% - 1px); /* Adjust the width as desired */
+    margin: 100 auto; /* Center the textboxes horizontally */
+    padding: 13px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 330;
+    font-style: normal;
+    font-size: 14px;
+    border: 2px solid #e3e3e3;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+#orderForm input::placeholder {
+    font-weight: 450;
+    color: #1f1f1f9e;
+}
+
+#orderForm button {
+    background-color: rgb(17, 174, 17);
+    color: white;
+    padding: 13px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    border: none;
+    border-radius: 17px;
+    margin-top: 10px;
+}
+
+#orderForm .form-group label {
+    position: relative;
+}
+
+#orderForm .form-group label .icon {
+    max-width: 30px; /* Adjust the size of the icons as needed */
+    height: auto;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+#orderForm input:focus + label {
+    top: 2px;
+    left: 5px;
+    font-size: 12px;
+}
+
+#orderForm button:hover {
+    background-color: #366d3a;
+}
+
+.button-back {
+    background-color: #e3e9ee;
+    color: #5d4eb1;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-back:hover {
+    background-color: #abc2d2;
+}
+
+.order-entry-header {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #50c9d4, #9f01ea);
+    color: transparent;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.expiry-cvv-container,
+.expiry-cvv-zip-container {
+    display: flex;
+}
+
+#expirationDate,
+#securityCode,
+#zipCode {
+    flex: 1;
+    margin-right: 10px; /* Adjust spacing between the fields */
 }
 
 .cardTypeIcons {
@@ -55,129 +159,4 @@ body {
 
 .cardTypeIcon.active {
     filter: grayscale(0%);
-}
-
-.form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    font-size: 16px;
-    margin-top: -30px; /* moves the form higher */
-}
-
-#orderForm {
-    width: 100%;
-    max-width: 500px;
-    padding: 30px;
-    border: 1px solid rgb(226, 226, 238);
-    border-radius: 25px;
-    background-color: #f7faff;
-    margin:auto;
-    box-shadow: 0 0 20px rgba(167, 169, 203, 0.5); /* glow effect */
-    position: relative;
-}
-
-#orderForm .form-group {
-    margin-bottom: 15px;
-}
-
-#orderForm label{ 
-    display: block;
-    margin-bottom: 10px;
-    font-family: "Noto Sans JP", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 430;
-    font-style: normal;
-    font-size: 14px; 
-}
-
-#orderForm input {
-    width: 90%;
-    padding: 12px;
-    font-family: "Noto Sans JP", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 330;
-    font-style: normal;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    background-color: #ececec;
-    border-radius: 12px;
-    box-sizing: border-box;
-    box-shadow: none; 
-}
-
-#orderForm input::placeholder {
-    font-weight: 450;
-    color:#6a6a6a;
-}
-
-#orderForm button {
-    background-color: rgb(17, 174, 17);
-    color: white;
-    padding: 11px;
-    font-family: "Noto Sans JP", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 14px;
-    border: none;
-    border-radius: 50px;
-}
-
-#orderForm .form-group label {
-    position: relative;
-}
-
-#orderForm .form-group label .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    vertical-align: middle;
-}
-
-#orderForm input:focus + label {
-    top: 2px;
-    left: 5px;
-    font-size: 12px;
-}
-
-#orderForm button:hover {
-    background-color: #5dce64;
-}
-
-.button-back {
-    background-color: #e3e9ee;
-    color: #5d4eb1;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 20px;
-    font-size: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-back:hover {
-    background-color: #abc2d2;
-}
-
-@media (min-width: 768px) {
-    .button-74 {
-    min-width: 120px;
-    padding: 0 25px;
-    }
-}
-
-.order-entry-header {
-    text-align: center;
-    font-size: 45px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #50c9d4, #9f01ea);
-    color: transparent;
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    -webkit-background-clip: text; 
-    background-clip: text;
 }

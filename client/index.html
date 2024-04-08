@@ -56,37 +56,28 @@
                         <input type="text" id="address" placeholder="Street Address" required>
                     </div>
                     <div class="form-group creditCardContainer">
-                        <label for="creditCard">Card</label>
+                        <label for="creditCard">Card Information</label>
                         <input type="text" id="creditCard" placeholder="Card Number" required>
-                    </div>
-                    <div class="form-group cardTypeIcons">
-                        <img id="mastercardIcon" class="cardTypeIcon" src="images/mastercard_logo.png" alt="Mastercard Logo">
-                        <img id="visaIcon" class="cardTypeIcon" src="images/visa_logo.png" alt="Visa Logo">
-                        <img id="amexIcon" class="cardTypeIcon" src="images/amex_logo.png" alt="American Express Logo">
-                    </div>
-                    <div class="form-group">
-                        <label for="expirationDate">Expiration Date</label>
-                        <input type="text" id="expirationDate" placeholder="MM/YY" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="securityCode">Security Code:</label>
-                        <input type="text" id="securityCode" placeholder="CVV" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="zipCode">
-                            <img src="images/zipcode.png" alt="Zip Code Icon" class="icon">
-                        </label>
-                        <input type="text" id="zipCode" placeholder="Zip Code" required>
-                    </div>                    
+                        <div class="form-group cardTypeIcons">
+                            <img id="mastercardIcon" class="cardTypeIcon" src="images/mastercard_logo.png" alt="Mastercard Logo">
+                            <img id="visaIcon" class="cardTypeIcon" src="images/visa_logo.png" alt="Visa Logo">
+                            <img id="amexIcon" class="cardTypeIcon" src="images/amex_logo.png" alt="American Express Logo">
+                        </div>
+                        <div class="expiry-cvv-container">
+                            <input type="text" id="expirationDate" placeholder="MM/YY" required>
+                            <input type="text" id="securityCode" placeholder="CVV" required>
+                            <input type="text" id="zipCode" placeholder="Zip Code" required>
+                        </div>
+                    </div>                  
                     <button class="button-63" type="button" id="submitButton" onclick="validateCreditCard()">Submit Order</button>
                     <button class="button-63" type="button" id="resetButton" onclick="resetForm()" style="display: none;">Reset Form</button>
                 </form>
             </div>    
-        </div>
+        </div>       
 
         <div id="page-2" class="pageBody">
             <div id="loginContainer">
-                <div class="order-list-header">Order Form</div> 
+                <div class="order-list-header">Orders Login</div> 
                 <label for="username">Username:</label>
                 <input type="text" id="username" required>
                 <label for="password">Password:</label>
@@ -152,7 +143,7 @@
 
         <div id="page-3" class="pageBody">
             <div id="loginContainerWarehouse">
-                <h1>Warehouse Login</h1>
+                <div class="warehouse-header">Warehouse Login</div> 
                 <label for="usernameInput">Username:</label>
                 <input type="text" id="usernameInput" required>
                 <label for="passwordInput">Password:</label>
@@ -160,18 +151,19 @@
                 <button type="button" id="loginButtonWarehouse" onclick="attemptLoginWarehouse()">Login</button>
             </div>
             <div>
-            <button class="button-back-warehouse" role="button" onclick="navigateBackward()">&#8249;</button>
+                <button class="button-back-warehouse" role="button" onclick="navigateBackward()">&#8249;</button>
             </div>
             <div id="warehouseContent" style="display: none;">
+                <div class="settlement">Settle Orders</div>
                 <label for="orderIdWarehouse">Order ID:</label>
-                <input type="text" id="orderIdWarehouse" required>
+                <input type="text" placeholder="ORD123456" id="orderIdWarehouse" required>
                 
                 <label for="finalAmountWarehouse">Final Amount:</label>
-                <input type="text" id="finalAmountWarehouse" required>
+                <input type="text" placeholder="Enter amount"  id="finalAmountWarehouse" required>
         
                 <button type="button" id="submitButtonWarehouse">Submit</button>
-                <button type="button" id="logOutButtonWarehouse" onclick="logOutWarehouse()">Log Out</button>
             </div>
+            <button type="button" id="logOutButtonWarehouse" onclick="logOutWarehouse()" style="display: none;">Log Out</button>
         </div>
     </body>
 </html>
