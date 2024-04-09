@@ -76,7 +76,7 @@ $(document).ready(function () {
             orderId: $('#orderId').val(),
             created_date: generateCurrentDateTime(),
             success: false,
-            reason: 'Insufficient Funds on Card ending in 2817',
+            reason: 'Insufficient Funds on Card',
             auth_token: null,
             token_exp_date: null,
             auth_amount: 0.00
@@ -129,13 +129,19 @@ $(document).ready(function () {
         $('#resetButton').show();
     }
     
+    function resetCardTypeIcons() {
+        $('.cardTypeIcon').css('filter', 'grayscale(100%)');
+    }
+
     function resetForm() {
         $('#orderId').val(generateRandomOrderId());
-
         $('#firstName, #lastName, #address, #creditCard, #expirationDate, #securityCode, #zipCode').val('');
+
+        resetCardTypeIcons();
 
         $('#resetButton').hide();
     }
+
 
     // check with nicholas //
     function sendToDatabase(apiResponse) {

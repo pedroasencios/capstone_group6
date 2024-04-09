@@ -25,12 +25,13 @@
             <div class="content-container">
                 <header>
                     <h1>Capstone Project for Group 6</h1>
-                    <p>Explore the options below to get started.</p>
                 </header>
                 <nav id="navigation-container">
-                    <div class="nav-item" onClick="navigateForward(1)">Order Entry UI</div>
-                    <div class="nav-item" onClick="navigateForward(2)">Order List UI</div>
-                    <div class="nav-item" onClick="navigateForward(3)">Warehouse UI</div>
+                    <p>Checkout page</p>
+                    <div class="nav-item" onClick="navigateForward(1)">Checkout</div>
+                    <p>Staff Member Logins</p>
+                    <div class="nav-item" onClick="navigateForward(2)">Orders</div>
+                    <div class="nav-item" onClick="navigateForward(3)">Warehouse</div>
                 </nav>
             </div>
         </div>
@@ -91,8 +92,8 @@
                 <div class="order-list-ui-header">Orders</div> 
                 <div id="filters" class="compact-filters">
                     <div class="filter-group">
-                        <label for="tokenFilter">Token:</label>
-                        <input type="text" id="tokenFilter" placeholder="Authorization Token">
+                        <label for="tokenFilter">Order ID or Token:</label>
+                        <input type="text" id="tokenFilter" placeholder="Enter Order ID or Auth Token">
                     </div>
                     <div class="filter-group">
                         <label for="expirationDateFilter">Expiration Date:</label>

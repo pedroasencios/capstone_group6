@@ -46,12 +46,21 @@ h1 {
     font-size: 3em;
 }
 
+
+
 #navigation-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5px;
+    margin-top: -50px;
 }
+
+#navigation-container p {
+    margin-bottom: 10px;
+    font-weight: 420;
+    color: rgba(0, 0, 0, 0.757);
+}
+
 
 .nav-item {
     background-color: #fbeee0;
