@@ -169,15 +169,31 @@ $(document).ready(function () {
             hour12: true, // Display in 12-hour format
             timeZone: 'America/New_York' // Setting timezone to EST
         };
-
+    
         // If it's token_exp_date, adjust the format
         if (isTokenExpDate) {
-            return date.toLocaleString('en-US', options);
+            var formattedDateTime = date.getFullYear() + '-' +
+                        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + date.getDate()).slice(-2) + ', ' +
+                        ('0' + date.getHours()).slice(-2) + ':' +
+                        ('0' + date.getMinutes()).slice(-2) + ':' +
+                        ('0' + date.getSeconds()).slice(-2) + ' ' +
+                        (date.getHours() >= 12 ? 'PM' : 'AM');
+
+            return formattedDateTime.replace(/\//g, '-'); // Replace slashes with dashes
         } else {
             // For created_date, manually format the date in EST
             var estOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
             var estTime = new Date(date.getTime() - estOffset);
-            return estTime.toLocaleString('en-US', options);
+            var formattedDateTime = date.getFullYear() + '-' +
+                        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + date.getDate()).slice(-2) + ', ' +
+                        ('0' + date.getHours()).slice(-2) + ':' +
+                        ('0' + date.getMinutes()).slice(-2) + ':' +
+                        ('0' + date.getSeconds()).slice(-2) + ' ' +
+                        (date.getHours() >= 12 ? 'PM' : 'AM');
+
+            return formattedDateTime.replace(/\//g, '-'); // Replace slashes with dashes
         }
-    }
+    } 
 });
