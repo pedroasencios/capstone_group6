@@ -38,7 +38,7 @@ app.post('/updateStatus', async (request, response) => {
             if (finalAmount > authorizedAmount) {
                 //updates the status of the Order to Error
                 await db.updateOrderStatus(orderId, 'error');
-                response.json({ success: false, error: 'Final amount exceeds authorized amount.' });
+                response.json({ success: false, error: 'Error: Final amount exceeds authorized amount.' });
             } else {
                 // updates the status to success
                 await db.updateOrderStatus(orderId, 'success');
